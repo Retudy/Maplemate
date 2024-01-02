@@ -108,7 +108,7 @@ class MainActivity : AppCompatActivity() {
                     2 -> R.drawable.home
                     3 -> R.drawable.scrap
                     4 -> R.drawable.mypage
-                    else -> R.drawable.pic_yoon
+                    else -> R.drawable.basic
                 }
                 tab?.setIcon(icon)
             }
