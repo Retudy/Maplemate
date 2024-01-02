@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/firstFragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".first.firstFragment"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/box_result"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:visibility="gone">
+        <ImageView
+            android:id="@+id/iv_back_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/arrow_left"
+            android:layout_margin="7dp"/>
+        <ImageView
+            android:id="@+id/iv_character_image"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/basic" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_character_level"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="레벨"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_world_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="서버"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_character_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="닉네임"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_character_guild_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="길드명"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_character_exp_rate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="경험치"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/box_search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <EditText
+            android:id="@+id/search_view"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:hint="캐릭명 입력"
+            android:background="@drawable/scrap_content_outline"
+            android:gravity="center"
+            android:focusableInTouchMode="true"
+            android:maxLines="1"
+            android:maxLength="12"
+            android:layout_marginTop="50dp"
+            android:layout_marginHorizontal="23dp"/>
+
+        <Button
+            android:id="@+id/btn_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="조회" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/blanc_yes_or_no"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="visible">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:text="김지성의 템을 훔쳐보시겠습니까?"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:id="@+id/btn_box"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="70dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btn_yes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="110dp"
+                android:text="네" />
+
+            <Button
+                android:id="@+id/btn_no"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="아니요" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/iv_background_image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/background"
+            android:visibility="visible" />
+    </LinearLayout>
+
+
+</LinearLayout>
