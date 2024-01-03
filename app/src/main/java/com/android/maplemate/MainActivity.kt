@@ -1,19 +1,16 @@
 package com.android.maplemate
 
-
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.viewpager2.widget.ViewPager2
-import com.android.retrofit.R
-import com.android.retrofit.databinding.ActivityMainBinding
+import com.android.maplemate.databinding.ActivityMainBinding
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
 class MainActivity : AppCompatActivity() {
 
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
-    private val viewPagerAdapter by lazy { ViewPager2Adapter(this) } // 1. 뷰페이저2 어뎁터 초기화
-
+    private val viewPagerAdapter by lazy { ViewPager2Adapter(this) }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val view = binding.root
@@ -95,7 +92,7 @@ class MainActivity : AppCompatActivity() {
                     2 -> R.drawable.home
                     3 -> R.drawable.scrap
                     4 -> R.drawable.mypage
-                    else -> R.drawable.pic_yoon
+                    else -> R.drawable.basic
                 }
                 tab?.setIcon(icon)
             }

@@ -1,0 +1,3 @@
+# Ignore specific values in string.xml
+app/src/main/res/values/string.xml
+nexon_api_key

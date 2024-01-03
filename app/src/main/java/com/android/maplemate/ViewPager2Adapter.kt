@@ -7,7 +7,6 @@ import com.android.maplemate.Data.MainTabs
 import com.android.maplemate.UI.FirstFragment
 import com.android.maplemate.UI.SecondFragment
 import com.android.maplemate.UI.ThirdFragment
-import com.android.retrofit.R
 
 class ViewPager2Adapter(fragmentActivity: FragmentActivity) :
     FragmentStateAdapter(fragmentActivity) {

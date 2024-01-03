@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
 import com.android.maplemate.Data.Ticker
 import com.android.maplemate.Service.ApiServiceBithum
-import com.android.retrofit.databinding.FragmentFirstBinding
+import com.android.maplemate.databinding.FragmentFirstBinding
 import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
