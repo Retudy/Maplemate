@@ -7,7 +7,4 @@
     <string name="member_third" translatable="false">루삥뽕</string>
     <string name="api_key" translatable="false">KEEEEEEY</string>
     <string name="abb" translatable="false">조회</string>
-    <!-- GITIGNORE_VALUES_IGNORE -->
-    <string name="nexon_api_key" translatable="false">test_a600e45ce67a8f1dd0d4466e7f3b0825b700dccabfd4466c92b690c34cc4d412c0f454bba65c5206af27084210f66392
-</string>
 </resources>
