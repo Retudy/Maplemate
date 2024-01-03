@@ -1,7 +1,14 @@
+import org.jetbrains.kotlin.konan.properties.Properties
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
 }
+
+    val properties = Properties()
+    properties.load(project.rootProject.file("local.properties").inputStream())
+
+
 
 android {
     namespace = "com.android.maplemate"
@@ -15,7 +22,18 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField(
+
+            "String",
+            "nexon_api_key",
+            properties.getProperty("api.key")
+        )
     }
+    buildFeatures {
+        buildConfig = true
+    }
+
 
     buildTypes {
         release {

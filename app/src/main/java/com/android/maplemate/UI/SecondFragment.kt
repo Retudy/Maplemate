@@ -9,8 +9,8 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import coil.load
+import com.android.maplemate.BuildConfig
 import com.android.maplemate.Data.MapleData
-import com.android.maplemate.R
 import com.android.maplemate.Service.ApiServiceMaple
 import com.android.maplemate.databinding.FragmentSecondBinding
 import kotlinx.coroutines.launch
@@ -19,6 +19,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.Properties
 
 
 class SecondFragment : Fragment() {
@@ -29,13 +30,14 @@ class SecondFragment : Fragment() {
 
     private var _binding: FragmentSecondBinding? = null
     private val binding get() = _binding!!
-    private lateinit var testApiKey: String
+
+    private lateinit var testApikey:String
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        testApiKey = getString(R.string.nexon_api_key)
+        testApikey = "${BuildConfig.nexon_api_key}"
 
     }
 
@@ -104,7 +106,7 @@ class SecondFragment : Fragment() {
         val mapleNickName = binding.searchView.text.toString()
         Log.d("getNickName", "${mapleNickName}")
         val mapleCall = apiservicemaple.getocid(
-            testApiKey,
+            testApikey,
             mapleNickName,
         )
 
@@ -118,7 +120,7 @@ class SecondFragment : Fragment() {
                     var getOcid = "${mapleinfo.ocid}"
                     Log.d("getocid", "${getOcid}")
                     val characterCall = apiservicemaple.getCharacter(
-                        testApiKey,
+                        testApikey,
                         "${getOcid}",
                         "2023-12-30"
                     )
@@ -193,7 +195,7 @@ class SecondFragment : Fragment() {
 
         val mapleNickName = binding.searchView.text.toString()
         var mapleCall = apiservicemaple.getocid(
-            testApiKey,
+            testApikey,
             "블랑",
         )
         binding.ivBackButton.setOnClickListener {
@@ -202,7 +204,7 @@ class SecondFragment : Fragment() {
                 boxSearch.isVisible = true
             }
             binding.btnSearch.setOnClickListener {
-                mapleCall = apiservicemaple.getocid(testApiKey,mapleNickName)
+                mapleCall = apiservicemaple.getocid(testApikey,mapleNickName)
             }
         }
 
@@ -216,7 +218,7 @@ class SecondFragment : Fragment() {
                     Log.d("getocid", "${getOcid}")
 
                     val charaterCall = apiservicemaple.getCharacter(
-                        testApiKey,
+                        testApikey,
                         "${getOcid}",
                         "2023-12-30"
                     )

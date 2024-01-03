@@ -13,8 +13,3 @@
 .externalNativeBuild
 .cxx
 local.properties
-.gitignore_values
-
-# test api_key value #
-app/src/main/res/values/string.xml
-nexon_api_key
