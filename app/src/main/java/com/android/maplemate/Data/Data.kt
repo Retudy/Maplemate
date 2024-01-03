@@ -1,6 +1,7 @@
 package com.android.maplemate.Data
 
 data class Data(
+
     val opening_price: String,
     val closing_price: String,
     val min_price: String,

@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.android.retrofit"
+    namespace = "com.android.maplemate"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.android.retrofit"
+        applicationId = "com.android.maplemate"
         minSdk = 29
         targetSdk = 33
         versionCode = 1
