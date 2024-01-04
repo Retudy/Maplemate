@@ -29,11 +29,12 @@ CoinActivity 를 실행하고 editText에 코인정보를 입력하고, 조회�
 3.데이터를 저장하고,출력 해봅니다 ( Room, Sharedpreferences )<br/>
 4.viewModel을 사용하고, mvvm 아키텍쳐로 코드를 리팩토링합니다. (본프로젝트 시에)<br/>
 
-api문서:https://apidocs.bithumb.com/reference/%ED%98%B8%EA%B0%80-%EC%A0%95%EB%B3%B4-%EC%A1%B0%ED%9A%8C<br/>
-참고:https://www.youtube.com/watch?v=YKV1a1YkuKE
+api문서:https://apidocs.bithumb.com/reference/%ED%98%B8%EA%B0%80-%EC%A0%95%EB%B3%B4-%EC%A1%B0%ED%9A%8C<br/> 빗썸 api
+api문서:https://openapi.nexon.com/game/maplestory/?id=22   nexon/maple api
+
 
 #사용기술
 ## 작성자: 윤동현
 
 라이브러리 <br/>
-Retrofit2 / coil / SharedPreferences / Viewbinding / Property / Corutine / RecyclerView
+Retrofit2 / Coil / SharedPreferences / Viewbinding / Property / Corutine / RecyclerView
