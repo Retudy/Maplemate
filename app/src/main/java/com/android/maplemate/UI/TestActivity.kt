@@ -28,84 +28,67 @@ class TestActivity : AppCompatActivity() {
 
     //datastore 객체를 불러옴
     private val Context.dataStore:
-            DataStore<Preferences> by preferencesDataStore(name = "settings")
-    private val stringKey = "key"
+            DataStore<Preferences> by preferencesDataStore( name = "Ocid" )
+    private lateinit var stringKey:String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val view = binding.root
         setContentView(view)
 
+
         binding.btnsave.setOnClickListener {
             //저장되는 함수
             val input = binding.etInputName.text.toString()
-
-            lifecycleScope.launch { save(input) }
-            Toast.makeText(this, "입력받은 텍스트:${input}가 정상적으로 저장되었습니다.", Toast.LENGTH_SHORT).show()
+            if (input.isNotBlank()) {
+                stringKey = input
+                lifecycleScope.launch {
+                    save(input)
+                    Toast.makeText(this@TestActivity, "저장된내용:${save(input)}", Toast.LENGTH_SHORT).show()
+                }
+            } else {
+                Toast.makeText(this@TestActivity, "입력값이 비어있습니다.", Toast.LENGTH_SHORT).show()
+            }
         }
+
+
         binding.btnLoad.setOnClickListener {
             //불러오는 함수
             val input = binding.etInputName.text.toString()
             lifecycleScope.launch {
                 // 데이터 불러오기
+                load(input)
                 val loadedValue = load(input).first()
 
-                if (loadedValue.isNotEmpty()) {
-                    // 값이 존재하면 해당 값을 사용
-                    Toast.makeText(
-                        this@TestActivity,
-                        "불러온 내용은: $loadedValue 입니다",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                } else {
-                    // 값이 없을 경우 예외 처리
-                    Toast.makeText(
-                        this@TestActivity,
-                        "입력받은 텍스트의 정보가 없어 불러올 수 없습니다.",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
+                binding.tvTest.text = loadedValue
             }
 
 
         }
     }
 
-    private suspend fun save(value: String) {
-        val key = stringPreferencesKey(stringKey)
-        val currentValues = loadAllValues().toMutableSet()
-        currentValues.add(value)
+    private suspend fun save(value: String): String {
+        val key = stringPreferencesKey(stringKey) // 여기서 stringkey를 사용
+        val valueToSave = "${key}로 부터 추출된 ocid "
         dataStore.edit {
-            it[key] = currentValues.joinToString(",")
+            it[key] = valueToSave
         }
+        return valueToSave
     }
 
-    private suspend fun loadAllValues(): Flow<Set<String>> {
-        val key = stringPreferencesKey(stringKey)
+    private suspend fun load(inputUserName: String): Flow<String> {
         return dataStore.data
             .catch { e ->
                 if (e is IOException) {
-                    emit(emptySet())
+                    emit(emptyPreferences())
                 } else {
                     throw e
                 }
             }
             .map { preferences ->
-                preferences[key]?.split(",")?.toSet() ?: emptySet()
+                val loadedValue = preferences[stringPreferencesKey(inputUserName)] ?: "기본 텍스트입니다."
+                loadedValue
             }
     }
-
-    private suspend fun load(value: String): Flow<String> {
-        return loadAllValues()
-            .map { savedValues ->
-                val matchingValues = savedValues.filter { it == value }
-                if (matchingValues.isNotEmpty()) {
-                    matchingValues.joinToString(", ")
-                } else {
-                    "입력받은 텍스트의 정보가 없어 불러와지지 않습니다."
-                }
-            }
-    }
-
 
 }
