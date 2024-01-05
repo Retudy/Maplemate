@@ -36,4 +36,4 @@ CoinActivity 를 실행하고 editText에 코인정보를 입력하고, 조회�
 ## 작성자: 윤동현
 <br/>
 라이브러리 <br/>
-Retrofit2 / Coil / SharedPreferences / Viewbinding / Property / Corutine / RecyclerView
+Retrofit2 / Coil / SharedPreferences / Viewbinding / Property / Corutine / RecyclerView / DataStore / 
