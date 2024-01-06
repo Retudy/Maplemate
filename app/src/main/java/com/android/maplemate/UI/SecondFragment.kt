@@ -35,6 +35,7 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.io.IOException
+import java.time.LocalDate
 import java.util.concurrent.atomic.AtomicReference
 
 
@@ -48,7 +49,9 @@ class SecondFragment : Fragment() {
     private lateinit var testApikey: String
     private lateinit var mapleNickName: String
     private lateinit var getocid:String
-    private val Context.prefrenceDataStore: DataStore<Preferences> by preferencesDataStore(name = "getOcid")
+    private val currentDate: LocalDate = LocalDate.now()
+    private val yesterday = currentDate.minusDays(1)
+    private val Context.preferenceDataStore: DataStore<Preferences> by preferencesDataStore(name = "getOcid")
 
 
 
@@ -108,7 +111,7 @@ class SecondFragment : Fragment() {
     }
 
     private fun apiRequest(mapleNickName:String) {
-
+    Log.d("nexon","$currentDate")
         //1.Retrofit 객체 초기화
         val retrofit: Retrofit = Retrofit.Builder()
             .baseUrl("https://open.api.nexon.com")
@@ -125,7 +128,7 @@ class SecondFragment : Fragment() {
         // 입력을받고, dataStore에 키값이 있는지 검증
         lifecycleScope.launch {
             val key = stringPreferencesKey(mapleNickName)
-            val dataStore = requireContext().prefrenceDataStore
+            val dataStore = requireContext().preferenceDataStore
             //Flow를 수집하여 데이터를 얻음
             val preferences = dataStore.data.first()
             val storedValue = preferences[key] ?: ""
@@ -139,10 +142,10 @@ class SecondFragment : Fragment() {
                     // 저장된값이 없을때 ( load() 함수를 보시면 string 값으로 value값을 저장해 "" 을 기본값으로 하였습니다.
                     if (loadedValue != ""){
                         var UnionCall = apiservicemaple.getUnion(
-                            testApikey,loadedValue,"2023-12-30"
+                            testApikey,loadedValue,"${yesterday}"
                         )
                         var characterCall = apiservicemaple.getCharacter(
-                            testApikey,loadedValue,"2023-12-30"
+                            testApikey,loadedValue,"${yesterday}"
                         )
 
                         characterCall.enqueue(object  : Callback<MapleData>{
@@ -183,7 +186,7 @@ class SecondFragment : Fragment() {
                             "2023-12-30"
                         )
                         var UnionCall = apiservicemaple.getUnion(
-                            testApikey,"${getocid}","2023-12-30"
+                            testApikey,"${getocid}","${yesterday}"
                         )
                         //getocid 가 null 이 아니면 = getocid가 획득된경우 (이전에 로컬에서 조회한적이 없는경우)
                         if(getocid != null){
@@ -222,7 +225,7 @@ class SecondFragment : Fragment() {
         mapleNickName = binding.searchView.text.toString()
         val key = stringPreferencesKey(mapleNickName)
         val valueToSave = getocid
-        val dataStore = requireContext().prefrenceDataStore
+        val dataStore = requireContext().preferenceDataStore
         dataStore.edit { preferences ->
             preferences[key] = valueToSave
         }
@@ -230,7 +233,7 @@ class SecondFragment : Fragment() {
     }
     private suspend fun load(inputUserName: String): Flow<String> {
         val key = stringPreferencesKey(inputUserName)
-        val dataStore = requireContext().prefrenceDataStore
+        val dataStore = requireContext().preferenceDataStore
         return dataStore.data
             .catch { e ->
                 if (e is IOException) {
@@ -245,7 +248,7 @@ class SecondFragment : Fragment() {
             }
     }
     private suspend fun delete(){
-        val dataStore = requireContext().prefrenceDataStore
+        val dataStore = requireContext().preferenceDataStore
         dataStore.edit { preferences ->
             preferences.clear()
         }
