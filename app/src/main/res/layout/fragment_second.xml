@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginTop="10dp"
-        android:visibility="gone">
+        android:visibility="visible">
         <ImageView
             android:id="@+id/iv_back_button"
             android:layout_width="wrap_content"
@@ -70,6 +70,12 @@
                 android:layout_height="wrap_content"
                 android:text="경험치"
                 android:textStyle="bold" />
+            <TextView
+                android:id="@+id/tv_union"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="유니온"
+                android:textStyle="bold"/>
 
         </LinearLayout>
 
@@ -81,7 +87,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:visibility="gone">
+        android:visibility="invisible">
 
         <EditText
             android:id="@+id/search_view"
@@ -102,54 +108,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="조회" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/blanc_yes_or_no"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:visibility="visible">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
             android:layout_marginTop="20dp"
-            android:text="김지성의 템을 훔쳐보시겠습니까?"
-            android:textStyle="bold" />
-
-        <LinearLayout
-            android:id="@+id/btn_box"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="70dp"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/btn_yes"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="110dp"
-                android:text="네" />
-
-            <Button
-                android:id="@+id/btn_no"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:text="아니요" />
-        </LinearLayout>
-
+            android:text="조회" />
         <ImageView
             android:id="@+id/iv_background_image"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:src="@drawable/background"
             android:visibility="visible" />
-    </LinearLayout>
 
+    </LinearLayout>
 
 </LinearLayout>
