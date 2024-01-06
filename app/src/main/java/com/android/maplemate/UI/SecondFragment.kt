@@ -48,7 +48,7 @@ class SecondFragment : Fragment() {
     private lateinit var testApikey: String
     private lateinit var mapleNickName: String
     private lateinit var getocid:String
-    private val Context.prefrenceDataStore: DataStore<Preferences> by preferencesDataStore(name = "getOcid")
+    private val Context.preferenceDataStore: DataStore<Preferences> by preferencesDataStore(name = "getOcid")
 
 
 
@@ -125,7 +125,7 @@ class SecondFragment : Fragment() {
         // 입력을받고, dataStore에 키값이 있는지 검증
         lifecycleScope.launch {
             val key = stringPreferencesKey(mapleNickName)
-            val dataStore = requireContext().prefrenceDataStore
+            val dataStore = requireContext().preferenceDataStore
             //Flow를 수집하여 데이터를 얻음
             val preferences = dataStore.data.first()
             val storedValue = preferences[key] ?: ""
@@ -222,7 +222,7 @@ class SecondFragment : Fragment() {
         mapleNickName = binding.searchView.text.toString()
         val key = stringPreferencesKey(mapleNickName)
         val valueToSave = getocid
-        val dataStore = requireContext().prefrenceDataStore
+        val dataStore = requireContext().preferenceDataStore
         dataStore.edit { preferences ->
             preferences[key] = valueToSave
         }
@@ -230,7 +230,7 @@ class SecondFragment : Fragment() {
     }
     private suspend fun load(inputUserName: String): Flow<String> {
         val key = stringPreferencesKey(inputUserName)
-        val dataStore = requireContext().prefrenceDataStore
+        val dataStore = requireContext().preferenceDataStore
         return dataStore.data
             .catch { e ->
                 if (e is IOException) {
@@ -245,7 +245,7 @@ class SecondFragment : Fragment() {
             }
     }
     private suspend fun delete(){
-        val dataStore = requireContext().prefrenceDataStore
+        val dataStore = requireContext().preferenceDataStore
         dataStore.edit { preferences ->
             preferences.clear()
         }
