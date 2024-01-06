@@ -7,27 +7,38 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.MutablePreferences
 import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.emptyPreferences
+import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.lifecycleScope
 import coil.load
 import com.android.maplemate.BuildConfig
 import com.android.maplemate.Data.MapleData
 import com.android.maplemate.Service.ApiServiceMaple
+import com.android.maplemate.ViewModel.SecondFragmentViewModel
 import com.android.maplemate.databinding.FragmentSecondBinding
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-
+import java.io.IOException
+import java.util.concurrent.atomic.AtomicReference
 
 
 class SecondFragment : Fragment() {
-
     companion object {
         fun newInstance(): SecondFragment = SecondFragment()
     }
@@ -35,19 +46,25 @@ class SecondFragment : Fragment() {
     private var _binding: FragmentSecondBinding? = null
     private val binding get() = _binding!!
     private lateinit var testApikey: String
+    private lateinit var mapleNickName: String
+    private lateinit var getocid:String
+    private val Context.prefrenceDataStore: DataStore<Preferences> by preferencesDataStore(name = "getOcid")
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         testApikey = "${BuildConfig.nexon_api_key}"
-
+        mapleNickName = ""
+        getocid = ""
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+
         _binding = FragmentSecondBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -55,30 +72,20 @@ class SecondFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.btnSearch.setOnClickListener {
+             mapleNickName = binding.searchView.text.toString()
 
-        binding.btnNo.setOnClickListener {
-            binding.apply {
-                boxSearch.isVisible = true
-                blancYesOrNo.isVisible = false
-            }
-            binding.btnSearch.setOnClickListener {
+            if (mapleNickName.isNotBlank()){
                 binding.apply {
-                    boxSearch.isVisible = false
-                    boxResult.isVisible = true
+                    binding.boxSearch.isVisible = false
+                    binding.boxResult.isVisible = true
                 }
                 lifecycleScope.launch {
-                    apiRequest()
+                    apiRequest(mapleNickName)
                 }
             }
-
-        }
-        binding.btnYes.setOnClickListener {
-            binding.apply {
-                binding.boxResult.isVisible = true
-                binding.blancYesOrNo.isVisible = false
-            }
-            lifecycleScope.launch {
-                blancRequest()
+            else{
+                Log.d("nexon","입력값이없어 UI가 변경되지 않음")
             }
         }
         binding.ivBackButton.setOnClickListener {
@@ -87,7 +94,12 @@ class SecondFragment : Fragment() {
                 boxSearch.isVisible = true
             }
         }
-
+        binding.ivBackgroundImage.setOnClickListener {
+            lifecycleScope.launch {
+                delete()
+            }
+            Log.d("nexon","dataStore 를 비웠습니다.")
+        }
     }
 
     override fun onDestroyView() {
@@ -95,9 +107,9 @@ class SecondFragment : Fragment() {
         _binding = null
     }
 
-    private fun apiRequest() {
+    private fun apiRequest(mapleNickName:String) {
 
-        //1.Retrofit 객체 초기화입
+        //1.Retrofit 객체 초기화
         val retrofit: Retrofit = Retrofit.Builder()
             .baseUrl("https://open.api.nexon.com")
             .addConverterFactory(GsonConverterFactory.create())
@@ -106,290 +118,136 @@ class SecondFragment : Fragment() {
         val apiservicemaple: ApiServiceMaple = retrofit.create(ApiServiceMaple::class.java)
 
         //3. Call객체 생성
-        val mapleNickName = binding.searchView.text.toString()
-        Log.d("getNickName", "${mapleNickName}")
-        val mapleCall = apiservicemaple.getocid(
+        val mapleCall: Call<MapleData> = apiservicemaple.getocid(
             testApikey,
             mapleNickName,
         )
+        // 입력을받고, dataStore에 키값이 있는지 검증
+        lifecycleScope.launch {
+            val key = stringPreferencesKey(mapleNickName)
+            val dataStore = requireContext().prefrenceDataStore
+            //Flow를 수집하여 데이터를 얻음
+            val preferences = dataStore.data.first()
+            val storedValue = preferences[key] ?: ""
 
-        //4. 네트워크 통신
-        mapleCall.enqueue(object : Callback<MapleData> {
-            override fun onResponse(call: Call<MapleData>, response: Response<MapleData>) {
+            if ( storedValue != "" ) {
+                Log.d("nexon","데이터를 로드하여 호출량 보존")
+                lifecycleScope.launch {
 
-                val mapleInfo = response.body()
+                    val loadedValue = load(mapleNickName).first()  //Flow에서 쿼리 = key 로 조회한 value값 추출
+                    Log.d("nexon","불러온식별자값:${loadedValue}")
+                    // 저장된값이 없을때 ( load() 함수를 보시면 string 값으로 value값을 저장해 "" 을 기본값으로 하였습니다.
+                    if (loadedValue != ""){
+                        var UnionCall = apiservicemaple.getUnion(
+                            testApikey,loadedValue,"2023-12-30"
+                        )
+                        var characterCall = apiservicemaple.getCharacter(
+                            testApikey,loadedValue,"2023-12-30"
+                        )
 
-                //입력받은 캐릭터명은 식별자를 얻음과 동시에 저장하는(SharedPreferences)로직 추가.
-                //입력받은캐릭터명 = ocid(식별자) 형태로 저장,불러옴
-                //1.입력받은캐릭명(mapleNickName)이 Sharedprefereces에 존재하지않으면 ocid(식별자)를 조회하고 getocid(testApikey,mapleNickName) ->저장로직추가 > character(testApikey,mapleNickName,date)
-                //2.입력받은캐릭명(mapleNickName)이 Sharedprefereces에 존재(!=null)하면 캐릭명과 일치하는 ocid를  찾아 변수 srefgetocid 에 담고, character(testApikey,srefgetocid,date) 를받아 쿼리에 넣어 요청.
-
-                if (mapleInfo != null) {
-                    var getOcid = "${mapleInfo.ocid}"
-                    Log.d("getOcid", "${getOcid}")
-                    //캐릭터 정보 조회 요청 로직을 characterCall에 담음
-                    val characterCall = apiservicemaple.getCharacter(
-                        testApikey,
-                        "${getOcid}",
-                        "2023-12-30"
-                    )
-                    if (getOcid != null) {
-                        Log.d("characterCall 시작직전", "${getOcid}")
-
-                        characterCall.enqueue(object : Callback<MapleData> {
+                        characterCall.enqueue(object  : Callback<MapleData>{
                             override fun onResponse(
                                 call: Call<MapleData>,
                                 response: Response<MapleData>
                             ) {
+                                val data = response.body()
 
-                                val mapleInfo2 = response.body()
-                                Log.d("mapleInfo2test", "mapleInfo2: ${mapleInfo2}")
-
-                                if (mapleInfo2 != null) {
-
-                                    Log.d("mapleInfo2success", "mapleInfo2: ${mapleInfo2}")
-                                    binding.apply {
-                                        binding.ivCharacterImage.load(mapleInfo2.characterImage)
-                                        tvCharacterLevel.text = "Lv:${mapleInfo2.characterLevel}"
-                                        tvWorldName.text = "서버: ${mapleInfo2.worldName}"
-                                        tvCharacterName.text = "닉네임: ${mapleInfo2.characterName}"
-                                        tvCharacterGuildName.text =
-                                            "길드: ${mapleInfo2.characterGuildName}"
-                                        tvCharacterExpRate.text =
-                                            "경험치: ${mapleInfo2.characterExpRate}%"
-                                    }
-
-
-                                } else {
-
-                                    Log.d("mapleInfo2", "mapleInfo2: ${mapleInfo2}")
-                                }
+                                binding.ivCharacterImage.load(data?.characterImage)
+                                binding.tvCharacterName.text = "레벨:${data?.characterLevel}"
+                                binding.tvWorldName.text = "서버:${data?.characterName}"
+                                binding.tvCharacterName.text = "닉네임:${data?.characterName}"
+                                binding.tvCharacterGuildName.text = "길드명:${data?.characterGuildName}"
+                                binding.tvCharacterExpRate.text = "경험치:${data?.characterExpRate}%"
                             }
 
                             override fun onFailure(call: Call<MapleData>, t: Throwable) {
-
-                                Log.e("Debug", "API Request Failed", t)
                                 call.cancel()
                             }
-
                         })
                     }
+                }}
+            else{
+                Log.d("nexon","저장된 데이터가 없어 호출량 -2")
+                //4. 네트워크 통신
+                mapleCall.enqueue(object : Callback<MapleData> {
+                    override fun onResponse(call: Call<MapleData>, response: Response<MapleData>) {
 
+                        val mapleInfo = response.body()
 
-                } else {
+                        getocid = mapleInfo?.ocid.toString()
+                        lifecycleScope.launch{ save(mapleNickName) } // mapleCall을 부르게되면 즉시 키값을 저장함
 
-                    Log.e("Fuxxk", "mapleInfo: ${mapleInfo}")
-                    Log.d("Fuxxk", "response: ${response}")
-                }
+                        val characterCall = apiservicemaple.getCharacter(
+                            testApikey,
+                            "${getocid}",
+                            "2023-12-30"
+                        )
+                        var UnionCall = apiservicemaple.getUnion(
+                            testApikey,"${getocid}","2023-12-30"
+                        )
+                        //getocid 가 null 이 아니면 = getocid가 획득된경우 (이전에 로컬에서 조회한적이 없는경우)
+                        if(getocid != null){
+                            characterCall.enqueue(object  : Callback<MapleData>{
+                                override fun onResponse(
+                                    call: Call<MapleData>,
+                                    response: Response<MapleData>
+                                ) {
+                                    val data = response.body()
 
-            }
+                                    binding.ivCharacterImage.load(data?.characterImage)
+                                    binding.tvCharacterName.text = "레벨:${data?.characterLevel}"
+                                    binding.tvWorldName.text = "서버:${data?.characterName}"
+                                    binding.tvCharacterName.text = "닉네임:${data?.characterName}"
+                                    binding.tvCharacterGuildName.text = "길드명:${data?.characterGuildName}"
+                                    binding.tvCharacterExpRate.text = "경험치:${data?.characterExpRate}%"
+                                }
 
-            override fun onFailure(call: Call<MapleData>, t: Throwable) {
+                                override fun onFailure(call: Call<MapleData>, t: Throwable) {
+                                    Log.d("도착","${getocid}")
+                                    call.cancel()
+                                }
+                            })
+                        }
+                    }
 
-                Log.e("Debug", "API Request Failed", t)
-                call.cancel()
-            }
+                    override fun onFailure(call: Call<MapleData>, t: Throwable) {
 
-        })
-
-    }
-
-    private fun blancRequest() {
-
-        val retrofit: Retrofit = Retrofit.Builder()
-            .baseUrl("https://open.api.nexon.com")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-
-        val apiservicemaple: ApiServiceMaple = retrofit.create(ApiServiceMaple::class.java)
-
-
-        val mapleNickName = binding.searchView.text.toString()
-        var mapleCall = apiservicemaple.getocid(
-            testApikey,
-            "블랑",
-        )
-        binding.ivBackButton.setOnClickListener {
-            binding.apply {
-                boxResult.isVisible = false
-                boxSearch.isVisible = true
-            }
-            binding.btnSearch.setOnClickListener {
-                mapleCall = apiservicemaple.getocid(testApikey, mapleNickName)
+                        call.cancel()
+                    }
+                })
             }
         }
-
-        mapleCall.enqueue(object : Callback<MapleData> {
-            override fun onResponse(call: Call<MapleData>, response: Response<MapleData>) {
-
-                val mapleInfo = response.body()
-
-                if (mapleInfo != null) {
-                    var getOcid = "${mapleInfo.ocid}"
-                    Log.d("getocid", "${getOcid}")
-
-                    val charaterCall = apiservicemaple.getCharacter(
-                        testApikey,
-                        "${getOcid}",
-                        "2023-12-30"
-                    )
-                    if (getOcid != null) {
-                        Log.d("characterCall 시작직전", "${getOcid}")
-
-                        charaterCall.enqueue(object : Callback<MapleData> {
-                            override fun onResponse(
-                                call: Call<MapleData>,
-                                response: Response<MapleData>
-                            ) {
-
-                                val mapleInfo2 = response.body()
-                                Log.d("mapleInfo2test", "mapleInfo2: ${mapleInfo2}")
-
-                                if (mapleInfo2 != null) {
-
-                                    Log.d("mapleInfo2success", "mapleInfo2: ${mapleInfo2}")
-                                    binding.apply {
-
-                                        ivCharacterImage.load(mapleInfo2.characterImage)
-                                        tvCharacterLevel.text = "Lv:${mapleInfo2.characterLevel}"
-                                        tvWorldName.text = "서버:${mapleInfo2.worldName}"
-                                        tvCharacterName.text = "닉네임:${mapleInfo2.characterName}"
-                                        tvCharacterGuildName.text = "길드:${mapleInfo2.characterGuildName}"
-                                        tvCharacterExpRate.text = "경험치:${mapleInfo2.characterExpRate}%"
-
-                                    }
-
-
-                                } else {
-
-                                    Log.d("mapleInfo2", "mapleInfo2: ${mapleInfo2}")
-                                }
-                            }
-
-                            override fun onFailure(call: Call<MapleData>, t: Throwable) {
-
-                                Log.e("Debug", "API Request Failed", t)
-                                call.cancel()
-                            }
-
-                        })
-                    }
-
-
-                } else {
-
-                    Log.e("Fuxxk", "mapleInfo: ${mapleInfo}")
-                    Log.d("Howtypelog", "etInputUserName: ${binding.searchView}")
-                    Log.d("Fuxxk", "response: ${response}")
-                }
-
-            }
-
-            override fun onFailure(call: Call<MapleData>, t: Throwable) {
-
-                Log.e("Debug", "API Request Failed", t)
-                call.cancel()
-            }
-
-        })
-
     }
-
-
-    private fun apiRequest2() {
-
-        //1.Retrofit 객체 초기화입
-        val retrofit: Retrofit = Retrofit.Builder()
-            .baseUrl("https://open.api.nexon.com")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-        //2. service 객체 생성
-        val apiservicemaple: ApiServiceMaple = retrofit.create(ApiServiceMaple::class.java)
-
-        //3. Call객체 생성
-        val mapleNickName = binding.searchView.text.toString()
-        Log.d("getNickName", "${mapleNickName}")
-        val mapleCall = apiservicemaple.getocid(
-            testApikey,
-            mapleNickName,
-        )
-
-        //4. 네트워크 통신
-        mapleCall.enqueue(object : Callback<MapleData> {
-            override fun onResponse(call: Call<MapleData>, response: Response<MapleData>) {
-
-                val mapleInfo = response.body()
-
-                //입력받은 캐릭터명은 식별자를 얻음과 동시에 저장하는(SharedPreferences)로직 추가.
-                //입력받은캐릭터명 = ocid(식별자) 형태로 저장,불러옴
-                //1.입력받은캐릭명(mapleNickName)이 Sharedprefereces에 존재하지않으면 ocid(식별자)를 조회하고 getocid(testApikey,mapleNickName) ->저장로직추가 > character(testApikey,mapleNickName,date)
-                //2.입력받은캐릭명(mapleNickName)이 Sharedprefereces에 존재(!=null)하면 캐릭명과 일치하는 ocid를  찾아 변수 srefgetocid 에 담고, character(testApikey,srefgetocid,date) 를받아 쿼리에 넣어 요청.
-
-                if (mapleInfo != null) {
-                    var getOcid = "${mapleInfo.ocid}"
-                    Log.d("getOcid", "${getOcid}")
-                    //캐릭터 정보 조회 요청 로직을 characterCall에 담음
-                    val characterCall = apiservicemaple.getCharacter(
-                        testApikey,
-                        "${getOcid}",
-                        "2023-12-30"
-                    )
-                    if (getOcid != null) {
-                        Log.d("characterCall 시작직전", "${getOcid}")
-
-                        characterCall.enqueue(object : Callback<MapleData> {
-                            override fun onResponse(
-                                call: Call<MapleData>,
-                                response: Response<MapleData>
-                            ) {
-
-                                val mapleInfo2 = response.body()
-                                Log.d("mapleInfo2test", "mapleInfo2: ${mapleInfo2}")
-
-                                if (mapleInfo2 != null) {
-
-                                    Log.d("mapleInfo2success", "mapleInfo2: ${mapleInfo2}")
-                                    binding.apply {
-                                        binding.ivCharacterImage.load(mapleInfo2.characterImage)
-                                        tvCharacterLevel.text = "Lv:${mapleInfo2.characterLevel}"
-                                        tvWorldName.text = "서버: ${mapleInfo2.worldName}"
-                                        tvCharacterName.text = "닉네임: ${mapleInfo2.characterName}"
-                                        tvCharacterGuildName.text = "길드: ${mapleInfo2.characterGuildName}"
-                                        tvCharacterExpRate.text = "경험치: ${mapleInfo2.characterExpRate}%"
-                                    }
-
-
-                                } else {
-
-                                    Log.d("mapleInfo2", "mapleInfo2: ${mapleInfo2}")
-                                }
-                            }
-
-                            override fun onFailure(call: Call<MapleData>, t: Throwable) {
-
-                                Log.e("Debug", "API Request Failed", t)
-                                call.cancel()
-                            }
-
-                        })
-                    }
-
-
+    private suspend fun save(value: String): String {
+        mapleNickName = binding.searchView.text.toString()
+        val key = stringPreferencesKey(mapleNickName)
+        val valueToSave = getocid
+        val dataStore = requireContext().prefrenceDataStore
+        dataStore.edit { preferences ->
+            preferences[key] = valueToSave
+        }
+        return valueToSave
+    }
+    private suspend fun load(inputUserName: String): Flow<String> {
+        val key = stringPreferencesKey(inputUserName)
+        val dataStore = requireContext().prefrenceDataStore
+        return dataStore.data
+            .catch { e ->
+                if (e is IOException) {
+                    emit(emptyPreferences())
                 } else {
-
-                    Log.e("Fuxxk", "mapleInfo: ${mapleInfo}")
-                    Log.d("Fuxxk", "response: ${response}")
+                    throw e
                 }
-
             }
-
-            override fun onFailure(call: Call<MapleData>, t: Throwable) {
-
-                Log.e("Debug", "API Request Failed", t)
-                call.cancel()
+            .map { preferences ->
+                val loadedValue = preferences[key] ?: ""
+                loadedValue
             }
-
-        })
-
+    }
+    private suspend fun delete(){
+        val dataStore = requireContext().prefrenceDataStore
+        dataStore.edit { preferences ->
+            preferences.clear()
+        }
     }
 }

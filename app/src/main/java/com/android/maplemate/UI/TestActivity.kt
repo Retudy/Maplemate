@@ -3,7 +3,6 @@ package com.android.maplemate.UI
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
@@ -16,7 +15,6 @@ import com.android.maplemate.databinding.ActivityTestBinding
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import java.io.IOException
@@ -29,6 +27,7 @@ class TestActivity : AppCompatActivity() {
     //datastore 객체를 불러옴
     private val Context.dataStore:
             DataStore<Preferences> by preferencesDataStore( name = "Ocid" )
+
     private lateinit var stringKey:String
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,7 +43,6 @@ class TestActivity : AppCompatActivity() {
                 stringKey = input
                 lifecycleScope.launch {
                     save(input)
-                    Toast.makeText(this@TestActivity, "저장된내용:${save(input)}", Toast.LENGTH_SHORT).show()
                 }
             } else {
                 Toast.makeText(this@TestActivity, "입력값이 비어있습니다.", Toast.LENGTH_SHORT).show()
