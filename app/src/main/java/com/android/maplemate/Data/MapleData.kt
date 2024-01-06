@@ -25,6 +25,11 @@ data class MapleData(
     val date: String?,
     @SerializedName("world_name")
     val worldName: String?,
-    val ocid: String,
-    val equipment: Equipment
+    @SerializedName("ocid")
+    val ocid: String?,
+    val equipment: Equipment?,
+    @SerializedName("union_grade")
+    val unionGrade: String?,
+    @SerializedName("union_level")
+    val unionLevel: Int?
 )
