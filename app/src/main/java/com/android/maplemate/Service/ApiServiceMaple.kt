@@ -29,4 +29,13 @@ interface ApiServiceMaple {
         @Query("ocid") ocid: String,
         @Query("date") date: String
     ): Call<MapleData>
+
+    @GET("/maplestory/v1/user/union")
+    fun getUnion(
+        @Header("x-nxopen-api-key") apiKey: String,
+        @Query("ocid") ocid: String,
+        @Query("date") date: String
+    ): Call<MapleData>
+
+
 }
