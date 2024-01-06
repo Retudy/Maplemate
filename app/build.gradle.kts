@@ -5,8 +5,8 @@ plugins {
     id("org.jetbrains.kotlin.android")
 }
 
-    val properties = Properties()
-    properties.load(project.rootProject.file("local.properties").inputStream())
+val properties = Properties()
+properties.load(project.rootProject.file("local.properties").inputStream())
 
 
 
@@ -32,6 +32,8 @@ android {
     }
     buildFeatures {
         buildConfig = true
+        viewBinding = true
+        dataBinding = true
     }
 
 
@@ -51,8 +53,7 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
-    viewBinding { enable = true }
-    dataBinding { enable = true }
+
 }
 
 dependencies {
@@ -66,13 +67,13 @@ dependencies {
     implementation("io.coil-kt:coil:2.5.0")
 
 
-    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.1")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.1")
     //retrofit2(api호출라이브러리) = gson(json데이터를 코틀린 데이터클래스와 파싱해줌) + okhttp3 (통신용)
-    implementation ("com.google.code.gson:gson:2.10.1")
-    implementation ("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
-    implementation ("com.squareup.okhttp3:okhttp:4.10.0")
-    implementation ("com.squareup.okhttp3:logging-interceptor:4.10.0")
+    implementation("com.google.code.gson:gson:2.10.1")
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation("com.squareup.okhttp3:okhttp:4.10.0")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.10.0")
     //Data Store 라이브러리 추가
     // Preferences DataStore (SharedPreferences like APIs)
     implementation("androidx.datastore:datastore-preferences:1.0.0")
@@ -82,6 +83,9 @@ dependencies {
     implementation("androidx.datastore:datastore-preferences-rxjava3:1.0.0")
     // Alternatively - use the following artifact without an Android dependency.
     implementation("androidx.datastore:datastore-preferences-core:1.0.0")
+    //lifecylce (viewmodel 사용에 필수)
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.2")
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
