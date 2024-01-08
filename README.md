@@ -18,8 +18,9 @@
 빗썸api문서:https://apidocs.bithumb.com/reference/%ED%98%B8%EA%B0%80-%EC%A0%95%EB%B3%B4-%EC%A1%B0%ED%9A%8C<br/>
 넥슨api문서:https://openapi.nexon.com/game/maplestory/?id=22 <br/>
 
-#사용기술
+#Stacl
 ## 작성자: 윤동현
 <br/>
 라이브러리 <br/>
-Retrofit2 / Coil / SharedPreferences / Viewbinding / Property / Corutine / RecyclerView / DataStore / 
+Native: Retrofit2 / Coil / SharedPreferences / Viewbinding / Property / Corutine / RecyclerView </br>
+Jetpack: dataStore
