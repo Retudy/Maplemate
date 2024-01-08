@@ -84,7 +84,7 @@ class SecondFragment : Fragment() {
                 }
             }
             else{
-                Toast.makeText(requireContext(), "입력값이없어 UI가 변경되지 않음ㅍ", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "입력값이없어 UI가 변경되지 않음", Toast.LENGTH_SHORT).show()
                 Log.d("nexon","입력값이없어 UI가 변경되지 않음")
             }
         }
@@ -101,10 +101,10 @@ class SecondFragment : Fragment() {
             Log.d("nexon","dataStore 를 비웠습니다.")
         }
     }
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+
     }
 
     private fun apiRequest(mapleNickName:String) {
@@ -132,6 +132,8 @@ class SecondFragment : Fragment() {
 
             if ( storedValue != "" ) {
                 Log.d("nexon","데이터를 로드하여 호출량 보존")
+                Log.d("nexon","입력받은닉네임:${mapleNickName}")
+
                 lifecycleScope.launch {
 
                     val loadedValue = load(mapleNickName).first()  //Flow에서 쿼리 = key 로 조회한 value값 추출
@@ -153,10 +155,11 @@ class SecondFragment : Fragment() {
                                 response: Response<MapleData>
                             ) {
                                 val data = response.body()
+                                Log.d("nexon","${data?.characterLevel}")
 
                                 binding.ivCharacterImage.load(data?.characterImage)
-                                binding.tvCharacterName.text = "레벨:${data?.characterLevel}"
-                                binding.tvWorldName.text = "서버:${data?.characterName}"
+                                binding.tvCharacterLevel.text = "레벨:${data?.characterLevel}"
+                                binding.tvWorldName.text = "서버:${data?.worldName}"
                                 binding.tvCharacterName.text = "닉네임:${data?.characterName}"
                                 binding.tvCharacterGuildName.text = "길드명:${data?.characterGuildName}"
                                 binding.tvCharacterExpRate.text = "경험치:${data?.characterExpRate}%"
@@ -166,19 +169,19 @@ class SecondFragment : Fragment() {
                                 call.cancel()
                             }
                         })
-                        characterCall.enqueue(object  : Callback<MapleData>{
-                            override fun onResponse(
-                                call: Call<MapleData>,
-                                response: Response<MapleData>
-                            ) {
-                                val data = response.body()
-
-                            }
-
-                            override fun onFailure(call: Call<MapleData>, t: Throwable) {
-                                call.cancel()
-                            }
-                        })
+//                        characterCall.enqueue(object  : Callback<MapleData>{
+//                            override fun onResponse(
+//                                call: Call<MapleData>,
+//                                response: Response<MapleData>
+//                            ) {
+//                                val data = response.body()
+//
+//                            }
+//
+//                            override fun onFailure(call: Call<MapleData>, t: Throwable) {
+//                                call.cancel()
+//                            }
+//                        })
                     }
                 }}
             else{
@@ -195,7 +198,7 @@ class SecondFragment : Fragment() {
                         val characterCall = apiservicemaple.getCharacter(
                             testApikey,
                             "${getocid}",
-                            "2023-12-30"
+                            "$yesterday"
                         )
                         var UnionCall = apiservicemaple.getUnion(
                             testApikey,"${getocid}","${yesterday}"
@@ -210,8 +213,8 @@ class SecondFragment : Fragment() {
                                     val data = response.body()
 
                                     binding.ivCharacterImage.load(data?.characterImage)
-                                    binding.tvCharacterName.text = "레벨:${data?.characterLevel}"
-                                    binding.tvWorldName.text = "서버:${data?.characterName}"
+                                    binding.tvCharacterLevel.text = "레벨:${data?.characterLevel}"
+                                    binding.tvWorldName.text = "서버:${data?.worldName}"
                                     binding.tvCharacterName.text = "닉네임:${data?.characterName}"
                                     binding.tvCharacterGuildName.text = "길드명:${data?.characterGuildName}"
                                     binding.tvCharacterExpRate.text = "경험치:${data?.characterExpRate}%"
