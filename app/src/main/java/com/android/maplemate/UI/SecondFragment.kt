@@ -169,19 +169,21 @@ class SecondFragment : Fragment() {
                                 call.cancel()
                             }
                         })
-//                        characterCall.enqueue(object  : Callback<MapleData>{
-//                            override fun onResponse(
-//                                call: Call<MapleData>,
-//                                response: Response<MapleData>
-//                            ) {
-//                                val data = response.body()
-//
-//                            }
-//
-//                            override fun onFailure(call: Call<MapleData>, t: Throwable) {
-//                                call.cancel()
-//                            }
-//                        })
+                        UnionCall.enqueue(object  : Callback<MapleData>{
+                            override fun onResponse(
+                                call: Call<MapleData>,
+                                response: Response<MapleData>
+                            ) {
+                                val data = response.body()
+
+                                binding.tvUnion.text = "유니온:${data?.unionLevel}"
+
+                            }
+
+                            override fun onFailure(call: Call<MapleData>, t: Throwable) {
+                                call.cancel()
+                            }
+                        })
                     }
                 }}
             else{
