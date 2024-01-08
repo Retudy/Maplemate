@@ -24,7 +24,7 @@ interface ApiServiceMaple {
     ): Call<MapleData>
 
     @GET("/maplestory/v1/character/item-equipment")
-    fun getItem(
+    fun getEquipment(
         @Header("x-nxopen-api-key") apiKey: String,
         @Query("ocid") ocid: String,
         @Query("date") date: String

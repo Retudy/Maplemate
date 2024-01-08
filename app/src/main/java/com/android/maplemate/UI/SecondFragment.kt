@@ -10,7 +10,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.MutablePreferences
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.emptyPreferences
@@ -21,11 +20,9 @@ import coil.load
 import com.android.maplemate.BuildConfig
 import com.android.maplemate.Data.MapleData
 import com.android.maplemate.Service.ApiServiceMaple
-import com.android.maplemate.ViewModel.SecondFragmentViewModel
 import com.android.maplemate.databinding.FragmentSecondBinding
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
@@ -36,7 +33,6 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.io.IOException
 import java.time.LocalDate
-import java.util.concurrent.atomic.AtomicReference
 
 
 class SecondFragment : Fragment() {
@@ -88,6 +84,7 @@ class SecondFragment : Fragment() {
                 }
             }
             else{
+                Toast.makeText(requireContext(), "입력값이없어 UI가 변경되지 않음ㅍ", Toast.LENGTH_SHORT).show()
                 Log.d("nexon","입력값이없어 UI가 변경되지 않음")
             }
         }
@@ -111,7 +108,7 @@ class SecondFragment : Fragment() {
     }
 
     private fun apiRequest(mapleNickName:String) {
-    Log.d("nexon","$currentDate")
+    Log.d("nexon","$yesterday")
         //1.Retrofit 객체 초기화
         val retrofit: Retrofit = Retrofit.Builder()
             .baseUrl("https://open.api.nexon.com")
@@ -138,13 +135,15 @@ class SecondFragment : Fragment() {
                 lifecycleScope.launch {
 
                     val loadedValue = load(mapleNickName).first()  //Flow에서 쿼리 = key 로 조회한 value값 추출
-                    Log.d("nexon","불러온식별자값:${loadedValue}")
                     // 저장된값이 없을때 ( load() 함수를 보시면 string 값으로 value값을 저장해 "" 을 기본값으로 하였습니다.
                     if (loadedValue != ""){
                         var UnionCall = apiservicemaple.getUnion(
                             testApikey,loadedValue,"${yesterday}"
                         )
                         var characterCall = apiservicemaple.getCharacter(
+                            testApikey,loadedValue,"${yesterday}"
+                        )
+                        var equipmentCall = apiservicemaple.getEquipment(
                             testApikey,loadedValue,"${yesterday}"
                         )
 
@@ -161,6 +160,19 @@ class SecondFragment : Fragment() {
                                 binding.tvCharacterName.text = "닉네임:${data?.characterName}"
                                 binding.tvCharacterGuildName.text = "길드명:${data?.characterGuildName}"
                                 binding.tvCharacterExpRate.text = "경험치:${data?.characterExpRate}%"
+                            }
+
+                            override fun onFailure(call: Call<MapleData>, t: Throwable) {
+                                call.cancel()
+                            }
+                        })
+                        characterCall.enqueue(object  : Callback<MapleData>{
+                            override fun onResponse(
+                                call: Call<MapleData>,
+                                response: Response<MapleData>
+                            ) {
+                                val data = response.body()
+
                             }
 
                             override fun onFailure(call: Call<MapleData>, t: Throwable) {
