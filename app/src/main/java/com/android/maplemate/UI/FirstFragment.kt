@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
-import com.android.maplemate.Data.Ticker
+import com.android.maplemate.Data.BithumData
 import com.android.maplemate.Service.ApiServiceBithum
 import com.android.maplemate.databinding.FragmentFirstBinding
 import kotlinx.coroutines.launch
@@ -78,19 +78,19 @@ class FirstFragment : Fragment() {
         val tickerCall = apiService.getCoinTicker(coinNm, "KRW")
 
         //4. 네트워크 통신
-        tickerCall.enqueue(object : Callback<Ticker> {
-            override fun onResponse(call: Call<Ticker>, response: Response<Ticker>) {
+        tickerCall.enqueue(object : Callback<BithumData> {
+            override fun onResponse(call: Call<BithumData>, response: Response<BithumData>) {
                 //호출데이터
-                val tickerinfo = response.body()
+                val bithumData = response.body()
 
-                binding.resultText.append("status :${tickerinfo?.status}\n")
-                binding.resultText.append("closing_price :${tickerinfo?.data?.closing_price}\n")
-                binding.resultText.append("opening_price :${tickerinfo?.data?.opening_price}\n")
-                binding.resultText.append("max_price :${tickerinfo?.data?.max_price}\n")
-                binding.resultText.append("min_price :${tickerinfo?.data?.min_price}\n")
+                binding.resultText.append("status :${bithumData?.status}\n")
+                binding.resultText.append("closing_price :${bithumData?.data?.closing_price}\n")
+                binding.resultText.append("opening_price :${bithumData?.data?.opening_price}\n")
+                binding.resultText.append("max_price :${bithumData?.data?.max_price}\n")
+                binding.resultText.append("min_price :${bithumData?.data?.min_price}\n")
             }
 
-            override fun onFailure(call: Call<Ticker>, t: Throwable) {
+            override fun onFailure(call: Call<BithumData>, t: Throwable) {
                 //오류 시 발생
                 call.cancel()
             }

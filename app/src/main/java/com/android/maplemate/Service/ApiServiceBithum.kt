@@ -1,6 +1,6 @@
 package com.android.maplemate.Service
 
-import com.android.maplemate.Data.Ticker
+import com.android.maplemate.Data.BithumData
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -11,5 +11,5 @@ interface ApiServiceBithum {
         @Path("order_currency") orderCurrency: String,
         @Path("payment_currency") paymentCurrency: String
 
-    ): Call<Ticker>
+    ): Call<BithumData>
 }
