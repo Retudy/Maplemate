@@ -1,8 +1,8 @@
 # 빗썸 api, nexon api 사용 
 ## 작성자: 윤동현
 
-
-실행화면<br/><br/>
+<p align="center">
+실행화면 입니다! <br/><br/>
 <p align="center">
 <img width="348" alt="스크린샷 2024-01-08 오후 5 17 48" src="https://github.com/Retudy/Maplemate/assets/129308578/1263b156-8154-42fd-a6d8-6e704fadb883">
 
