@@ -8,9 +8,9 @@ import android.view.ViewGroup
 import com.android.maplemate.databinding.FragmentStudyBinding
 
 
-class StudyFragment : Fragment() {
+class KyuFragment : Fragment() {
     companion object {
-        fun newinstance(): StudyFragment = StudyFragment()
+        fun newinstance(): KyuFragment = KyuFragment()
     }
 
     private var _binding: FragmentStudyBinding? = null
