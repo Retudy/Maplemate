@@ -5,7 +5,8 @@
     <string name="member_first" translatable="false">빗썸api</string>
     <string name="member_second" translatable="false">넥슨api</string>
     <string name="member_third" translatable="false">루삥뽕</string>
-    <string name="member_study" translatable="false">Study</string>
+    <string name="member_study" translatable="false">황일규</string>
+    <string name="member_study2" translatable="false">서수현</string>
     <string name="api_key" translatable="false">KEEEEEEY</string>
     <string name="abb" translatable="false">조회</string>
 </resources>

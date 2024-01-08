@@ -4,7 +4,6 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.lifecycle.ViewModel
 import com.android.maplemate.Repository.SecondFragmentRepository
-import com.android.maplemate.UI.StudyFragment
 
 class SecondFragmentViewModel(
     private val dataStore: DataStore<Preferences>,
