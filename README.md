@@ -21,7 +21,8 @@ CoinActivity 를 실행하고 editText에 코인정보를 입력하고, 조회�
 
 실행화면<br/><br/>
 
-<img width="322" alt="스크린샷 2023-12-03 오전 6 10 10" src="https://github.com/Retudy/Retrofit2/assets/129308578/d2c2a88a-8c18-44f9-9396-c19352dbcd32"><br/>
+<img width="348" alt="스크린샷 2024-01-08 오후 5 17 48" src="https://github.com/Retudy/Maplemate/assets/129308578/1263b156-8154-42fd-a6d8-6e704fadb883">
+
 
 ** 앞으로 할일 **<br/>
 1.유튜브api,공공데이터api,네이버 api 등을 recyclerview에 표시해봅니다,<br/>
