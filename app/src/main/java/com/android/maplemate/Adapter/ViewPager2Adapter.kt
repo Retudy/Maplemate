@@ -7,6 +7,7 @@ import com.android.maplemate.Data.MainTabs
 import com.android.maplemate.R
 import com.android.maplemate.UI.FirstFragment
 import com.android.maplemate.UI.SecondFragment
+import com.android.maplemate.UI.Study2Fragment
 import com.android.maplemate.UI.StudyFragment
 import com.android.maplemate.UI.ThirdFragment
 
@@ -39,6 +40,13 @@ class ViewPager2Adapter(fragmentActivity: FragmentActivity) :
                 fragment = StudyFragment(),
                 title = R.string.member_study,
                 icon = R.drawable.home,
+            )
+        )
+        add(
+            MainTabs(
+                fragment = Study2Fragment(),
+                title = R.string.member_study2,
+                icon = R.drawable.community
             )
         )
     }
