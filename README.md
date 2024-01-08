@@ -20,7 +20,7 @@ retrofit2
 CoinActivity 를 실행하고 editText에 코인정보를 입력하고, 조회버튼을 누르면 조회됩니다.<br/><br/>
 
 실행화면<br/><br/>
-
+<p align="center">
 <img width="348" alt="스크린샷 2024-01-08 오후 5 17 48" src="https://github.com/Retudy/Maplemate/assets/129308578/1263b156-8154-42fd-a6d8-6e704fadb883">
 
 
