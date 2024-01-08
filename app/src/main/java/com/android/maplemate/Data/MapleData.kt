@@ -4,6 +4,12 @@ import com.google.gson.annotations.SerializedName
 import java.io.Serial
 
 data class MapleData(
+    @SerializedName("ocid")
+    val ocid: String?,
+    @SerializedName("equipment")
+    val equipment: Equipment?,
+    @SerializedName("date")
+    val date: String?,
     @SerializedName("character_class")
     val characterClass: String?,
     @SerializedName("character_class_level")
@@ -22,16 +28,11 @@ data class MapleData(
     val characterLevel: Int?,
     @SerializedName("character_name")
     val characterName: String?,
-    @SerializedName("date")
-    val date: String?,
     @SerializedName("world_name")
     val worldName: String?,
-    @SerializedName("equipment")
-    val equipment: Equipment?,
     @SerializedName("union_grade")
     val unionGrade: String?,
     @SerializedName("union_level")
-    val unionLevel: Int?,
-    @SerializedName("ocid")
-    val ocid: String?,
-)
+    val unionLevel: Int?
+
+    )
