@@ -1,6 +1,7 @@
 package com.android.maplemate.Data
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serial
 
 data class MapleData(
     @SerializedName("character_class")
@@ -25,11 +26,12 @@ data class MapleData(
     val date: String?,
     @SerializedName("world_name")
     val worldName: String?,
-    @SerializedName("ocid")
-    val ocid: String?,
+    @SerializedName("equipment")
     val equipment: Equipment?,
     @SerializedName("union_grade")
     val unionGrade: String?,
     @SerializedName("union_level")
-    val unionLevel: Int?
+    val unionLevel: Int?,
+    @SerializedName("ocid")
+    val ocid: String?,
 )
