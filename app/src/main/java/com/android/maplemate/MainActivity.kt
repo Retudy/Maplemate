@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity() {
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
     private val viewPagerAdapter by lazy { ViewPager2Adapter(this) }
     //datastore 객체를 불러옴
-    private val Context.dataStore: DataStore<Preferences> by preferencesDataStore( name = "getOcid" )
+    private val Context.dataStore: DataStore<Preferences> by preferencesDataStore( name = "getocid" )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -83,7 +83,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     /**
-     * 작성자:
+     * 작성자:윤동현
      * 내용: 홈 탭에서 다른 탭으로 이동시 사용
      * ViewPagerAdapter에서 Tab 이름을 검색하여 나온
      * index값을 가져와 Tab 현재위치를 바꿔줌
@@ -121,7 +121,15 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onTabReselected(tab: TabLayout.Tab?) {
-                TODO("Not yet implemented")
+                val icon = when (tab?.position) {
+                    0 -> R.drawable.budget
+                    1 -> R.drawable.community
+                    2 -> R.drawable.home
+                    3 -> R.drawable.scrap
+                    4 -> R.drawable.mypage
+                    else -> R.drawable.basic
+                }
+                 tab?.setIcon(icon)
             }
         })
     }

@@ -72,6 +72,10 @@ class ViewPager2Adapter(fragmentActivity: FragmentActivity) :
                 val element = fragments.find {it.title == name}
                 fragments.indexOf(element)
             }
+            R.string.member_study2 ->{
+                val element = fragments.find { it.title == name }
+                fragments.indexOf(element)
+            }
 
             else -> 0
         }
