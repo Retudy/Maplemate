@@ -155,7 +155,6 @@ class SecondFragment : Fragment() {
                                 response: Response<MapleData>
                             ) {
                                 val data = response.body()
-                                Log.d("nexon","${data?.characterLevel}")
 
                                 binding.ivCharacterImage.load(data?.characterImage)
                                 binding.tvCharacterLevel.text = "레벨:${data?.characterLevel}"

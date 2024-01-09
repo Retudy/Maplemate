@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
 import com.android.maplemate.Data.BithumData
+import com.android.maplemate.Data.Ticker
 import com.android.maplemate.Service.ApiServiceBithum
 import com.android.maplemate.databinding.FragmentFirstBinding
 import kotlinx.coroutines.launch
