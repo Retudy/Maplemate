@@ -1,8 +1,10 @@
 package com.android.maplemate
 
 import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
@@ -18,13 +20,19 @@ class MainActivity : AppCompatActivity() {
 
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
     private val viewPagerAdapter by lazy { ViewPager2Adapter(this) }
-    //datastore 객체를 불러옴
-    private val Context.dataStore: DataStore<Preferences> by preferencesDataStore( name = "getocid" )
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val view = binding.root
         setContentView(view)
+
+        if(intent != null){
+            val receivedata = intent.getStringExtra("key")
+            Log.d("receivedata","receivedata:${receivedata}")
+            binding.tvGetData.text = "${receivedata}"
+        }
 
         viewPager2State()
         setupTabIcons()
