@@ -60,7 +60,7 @@ dependencies {
 
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.fragment:fragment-ktx:1.6.1")
-    implementation("androidx.appcompat:appcompat:1.6.1")
+    implementation("androidx.appcompat:appcompat:1.6.1") // naver 는 1.3.1
     implementation("com.google.android.material:material:1.10.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     //  코일라이브러리 ( 이미지 업로드 라이브러리 )
@@ -86,6 +86,17 @@ dependencies {
     //lifecylce (viewmodel 사용에 필수)
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.2")
+    //Maven repository
+    implementation("com.navercorp.nid:oauth-jdk8:5.9.0")
+    //네아로 sdk
+    implementation ("org.jetbrains.kotlin:kotlin-stdlib:1.6.21")
+    implementation ("androidx.legacy:legacy-support-core-utils:1.0.0")
+    implementation ("androidx.browser:browser:1.4.0")
+    implementation ("androidx.security:security-crypto:1.1.0-alpha06")
+    implementation ("androidx.core:core-ktx:1.6.0")
+    implementation ("com.airbnb.android:lottie:3.1.0")
+    //
+//    implementation(files("libs/oauth-5.9.0.aar"))
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
