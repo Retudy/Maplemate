@@ -15,12 +15,10 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
 
-
 class MainActivity : AppCompatActivity() {
 
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
     private val viewPagerAdapter by lazy { ViewPager2Adapter(this) }
-
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,11 +26,7 @@ class MainActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
-        if(intent != null){
-            val receivedata = intent.getStringExtra("key")
-            Log.d("receivedata","receivedata:${receivedata}")
-            binding.tvGetData.text = "${receivedata}"
-        }
+
 
         viewPager2State()
         setupTabIcons()
@@ -137,7 +131,7 @@ class MainActivity : AppCompatActivity() {
                     4 -> R.drawable.mypage
                     else -> R.drawable.basic
                 }
-                 tab?.setIcon(icon)
+                tab?.setIcon(icon)
             }
         })
     }
