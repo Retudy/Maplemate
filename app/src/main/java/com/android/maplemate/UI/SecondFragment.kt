@@ -131,7 +131,7 @@ class SecondFragment : Fragment() {
             val storedValue = preferences[key] ?: ""
 
             if ( storedValue != "" ) {
-                Log.d("nexon","데이터를 로드하여 호출량 보존")
+                Log.d("nexon","데이터를 로드하여 호출량 Count:-2 (장비/유니온/)")
                 Log.d("nexon","입력받은닉네임:${mapleNickName}")
 
                 lifecycleScope.launch {
@@ -186,7 +186,7 @@ class SecondFragment : Fragment() {
                     }
                 }}
             else{
-                Log.d("nexon","저장된 데이터가 없어 호출량 -2")
+                Log.d("nexon","저장된 데이터가 없어 호출량 -3 (식벌자/기본정보/유니온")
                 //4. 네트워크 통신
                 mapleCall.enqueue(object : Callback<MapleData> {
                     override fun onResponse(call: Call<MapleData>, response: Response<MapleData>) {
@@ -206,6 +206,7 @@ class SecondFragment : Fragment() {
                         )
                         //getocid 가 null 이 아니면 = getocid가 획득된경우 (이전에 로컬에서 조회한적이 없는경우)
                         if(getocid != null){
+
                             characterCall.enqueue(object  : Callback<MapleData>{
                                 override fun onResponse(
                                     call: Call<MapleData>,
@@ -224,6 +225,19 @@ class SecondFragment : Fragment() {
                                 override fun onFailure(call: Call<MapleData>, t: Throwable) {
                                     Log.d("도착","${getocid}")
                                     call.cancel()
+                                }
+                            })
+                            UnionCall.enqueue(object : Callback<MapleData>{
+                                override fun onResponse(
+                                    call: Call<MapleData>,
+                                    response: Response<MapleData>
+                                ) {
+                                    val data = response.body()
+                                    binding.tvUnion.text = "유니온:${data?.unionLevel}"
+                                }
+
+                                override fun onFailure(call: Call<MapleData>, t: Throwable) {
+                                    TODO("Not yet implemented")
                                 }
                             })
                         }
