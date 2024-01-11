@@ -9,7 +9,7 @@
   
 <img width="717" alt="스크린샷 2024-01-12 오전 2 10 10" src="https://github.com/Retudy/Maplemate/assets/129308578/765d7cb9-58fc-4c95-ba3c-c100698fedf9">
 
-
+<p align="center">
 ** 업데이트 내용** <br/>
 24.01.01</br>
 - 아이디를 입력하면 캐릭터의 정보, 아이템이 조회됩니다. </br>
