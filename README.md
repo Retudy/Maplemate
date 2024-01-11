@@ -18,8 +18,7 @@
 24.01.12</br>
 - 캐릭터 조회후, 다음 캐릭터의 장비 리스트가 갱신되지 않던 문제 해결.<br/>
 
-넥슨api문서:https://openapi.nexon.com/game/maplestory/?id=22 <br/>
-
+<p align="center">
 #Stack
 ## 작성자: 윤동현
 <br/>
