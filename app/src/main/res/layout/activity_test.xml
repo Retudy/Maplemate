@@ -6,47 +6,71 @@
     android:layout_height="match_parent"
     tools:context=".UI.TestActivity">
 
-    <EditText
-        android:id="@+id/et_input_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="209dp"
-        android:gravity="center"
-        app:layout_constraintEnd_toEndOf="parent"
+    <ImageView
+        android:id="@+id/iv2_item_icon"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="3dp"
+        android:layout_marginBottom="612dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/tv2_item_equipment_part"
         app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/basic" />
+
+    <TextView
+        android:id="@+id/tv2_item_equipment_part"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="219dp"
+        android:text="장비 부위명"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/iv2_item_icon"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/tv2_item_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="3dp"
+        android:textStyle="bold"
+        android:text="장비 이름"
+        app:layout_constraintStart_toEndOf="@+id/iv2_item_icon"
+        app:layout_constraintTop_toBottomOf="@+id/tv2_item_equipment_part" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="3dp"
+        android:layout_marginTop="4dp"
+        android:text="TextView"
+        app:layout_constraintStart_toEndOf="@+id/iv2_item_icon"
+        app:layout_constraintTop_toBottomOf="@+id/tv2_item_name" />
+
     <Button
-        android:id="@+id/btnsave"
+        android:id="@+id/btn2_search"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="160dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="160dp"
-        android:text="저장"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_input_name" />
-
-    <Button
-        android:id="@+id/btn_load"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:text="불러오기"
+        android:layout_marginTop="49dp"
+        android:layout_marginEnd="163dp"
+        android:text="조회"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnsave" />
+        app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
-    <TextView
-        android:id="@+id/tv_test"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="108dp"
-        android:layout_marginEnd="92dp"
-        android:text="입력받은 내용을 불러와 : @@@입니다"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_test"
+        android:layout_width="409dp"
+        android:layout_height="551dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginEnd="1dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_load" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn2_search" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

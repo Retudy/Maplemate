@@ -1,5 +1,7 @@
 package com.android.maplemate.Service
 
+import com.android.maplemate.Data.Cash
+import com.android.maplemate.Data.Equipment
 import com.android.maplemate.Data.MapleData
 import retrofit2.Call
 import retrofit2.http.GET
@@ -23,19 +25,26 @@ interface ApiServiceMaple {
         @Query("date") date: String
     ): Call<MapleData>
 
-    @GET("/maplestory/v1/character/item-equipment")
-    fun getEquipment(
-        @Header("x-nxopen-api-key") apiKey: String,
-        @Query("ocid") ocid: String,
-        @Query("date") date: String
-    ): Call<MapleData>
-
     @GET("/maplestory/v1/user/union")
     fun getUnion(
         @Header("x-nxopen-api-key") apiKey: String,
         @Query("ocid") ocid: String,
         @Query("date") date: String
     ): Call<MapleData>
+
+    @GET("/maplestory/v1/character/cashitem-equipment")
+    fun getCashItem(
+        @Header("x-nxopen-api-key") apiKey: String,
+        @Query("ocid") ocid: String,
+        @Query("date") date: String
+    ): Call<Cash>
+
+    @GET("/maplestory/v1/character/item-equipment")
+    fun getEquipment(
+        @Header("x-nxopen-api-key") apiKey: String,
+        @Query("ocid") ocid: String,
+        @Query("date") date: String
+    ): Call<Equipment>
 
 
 }
