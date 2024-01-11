@@ -5,22 +5,29 @@
     android:id="@+id/second_fragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".UI.FirstFragment"
-    android:orientation="vertical">
-
+    android:orientation="vertical"
+    tools:context=".UI.FirstFragment">
+<LinearLayout
+    android:id="@+id/box_result"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:visibility="gone">
     <LinearLayout
-        android:id="@+id/box_result"
+        android:id="@+id/box"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:layout_marginTop="10dp"
-        android:visibility="gone">
+        android:orientation="horizontal"
+        android:visibility="visible">
+
         <ImageView
             android:id="@+id/iv_back_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/arrow_left"
-            android:layout_margin="7dp"/>
+            android:layout_marginLeft="20dp"
+            android:src="@drawable/arrow_left" />
+
         <ImageView
             android:id="@+id/iv_character_image"
             android:layout_width="100dp"
@@ -54,33 +61,44 @@
                 android:id="@+id/tv_character_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="닉네임"
+                android:text="닉네임:"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tv_character_guild_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="길드명"
+                android:text="길드명:"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tv_character_exp_rate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="경험치"
+                android:text="경험치:"
                 android:textStyle="bold" />
+
             <TextView
                 android:id="@+id/tv_union"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text=""
-                android:textStyle="bold"/>
+                android:text="유니온:"
+                android:textStyle="bold" />
 
         </LinearLayout>
 
 
     </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_equpipment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+
+
+</LinearLayout>
+
 
     <LinearLayout
         android:id="@+id/box_search"
@@ -94,14 +112,14 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_gravity="center"
-            android:hint="캐릭명 입력"
-            android:background="@drawable/scrap_content_outline"
-            android:gravity="center"
-            android:focusableInTouchMode="true"
-            android:maxLines="1"
-            android:maxLength="12"
+            android:layout_marginHorizontal="23dp"
             android:layout_marginTop="50dp"
-            android:layout_marginHorizontal="23dp"/>
+            android:background="@drawable/scrap_content_outline"
+            android:focusableInTouchMode="true"
+            android:gravity="center"
+            android:hint="캐릭명 입력"
+            android:maxLength="12"
+            android:maxLines="1" />
 
         <Button
             android:id="@+id/btn_search"
@@ -110,12 +128,12 @@
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
             android:text="조회" />
+
         <ImageView
             android:id="@+id/iv_background_image"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@drawable/background"
-            android:visibility="visible" />
+            android:src="@drawable/background" />
 
     </LinearLayout>
 

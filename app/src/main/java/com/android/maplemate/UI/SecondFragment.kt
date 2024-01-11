@@ -16,8 +16,11 @@ import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
 import coil.load
+import com.android.maplemate.Adapter.SecondFragmentAdapter
 import com.android.maplemate.BuildConfig
+import com.android.maplemate.Data.Equipment
 import com.android.maplemate.Data.MapleData
 import com.android.maplemate.Service.ApiServiceMaple
 import com.android.maplemate.databinding.FragmentSecondBinding
@@ -26,6 +29,7 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
+import okhttp3.internal.notifyAll
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -49,6 +53,9 @@ class SecondFragment : Fragment() {
     private val yesterday = currentDate.minusDays(1)
     private val Context.preferenceDataStore: DataStore<Preferences> by preferencesDataStore(name = "getOcid")
 
+    private val dataList = mutableListOf<Equipment.ItemEquipment?>()
+    private val adapter by lazy { SecondFragmentAdapter(dataList) }
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -56,6 +63,7 @@ class SecondFragment : Fragment() {
         testApikey = "${BuildConfig.nexon_api_key}"
         mapleNickName = ""
         getocid = ""
+
     }
 
     override fun onCreateView(
@@ -66,10 +74,25 @@ class SecondFragment : Fragment() {
 
         _binding = FragmentSecondBinding.inflate(inflater, container, false)
         return binding.root
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        // 리싸이클러뷰를 연결함 (여기서 미리추가한 더미데이터는 추가가 됨)
+
+//        binding.rvEqupipment.adapter = SecondFragmentAdapter(dataList) //recyclerview.adapter = 내가만든어뎁터(넣을데이터)
+        // 1.livedata를 만들어서 > 데이터가 바뀔때 알아서 감지해준다.
+
+
+        binding.rvEqupipment.adapter = adapter  // 리싸이클러뷰 위젯 = adapter (내가만든 어뎁터)
+        binding.rvEqupipment.layoutManager = LinearLayoutManager(context) // (레이아웃 매니저 설정)
+
+
+
+
+
 
         binding.btnSearch.setOnClickListener {
              mapleNickName = binding.searchView.text.toString()
@@ -131,8 +154,8 @@ class SecondFragment : Fragment() {
             val storedValue = preferences[key] ?: ""
 
             if ( storedValue != "" ) {
-                Log.d("nexon","데이터를 로드하여 호출량 Count:-2 (장비/유니온/)")
-                Log.d("nexon","입력받은닉네임:${mapleNickName}")
+                Log.d("nexon","데이터를 로드하여 호출량 Count:-2 (장비/유니온)")
+                Log.d("nexon","입력받은 닉네임:${mapleNickName}")
 
                 lifecycleScope.launch {
 
@@ -155,6 +178,7 @@ class SecondFragment : Fragment() {
                                 response: Response<MapleData>
                             ) {
                                 val data = response.body()
+                                Log.d("nexon","들어온 데이터:${response.body()}{}")
 
                                 binding.ivCharacterImage.load(data?.characterImage)
                                 binding.tvCharacterLevel.text = "레벨:${data?.characterLevel}"
@@ -183,6 +207,40 @@ class SecondFragment : Fragment() {
                                 call.cancel()
                             }
                         })
+                        equipmentCall.enqueue(object:Callback<Equipment>{
+                            override fun onResponse(
+                                call: Call<Equipment>,
+                                response: Response<Equipment>
+                            ) {
+                                val data = response.body()
+
+                                val itemEquipment = data?.itemEquipment
+                                Log.d("item","${data?.itemEquipment}")
+
+
+
+
+                                if (!itemEquipment.isNullOrEmpty()) {
+                                        val itemNames = itemEquipment.mapNotNull { it?.itemName } // 얘가 정상적으로 꺼내졌으니까
+                                        val itemsText = itemNames.joinToString("\n")
+                                        Log.d("Test","${itemsText}")
+//                                        Log.d("item","item:${itemNames}")
+                                    itemEquipment?.let{ list ->
+                                       list.forEach {
+                                           dataList.add(it)
+                                       }
+                                    }
+                                    adapter.notifyDataSetChanged()
+
+                                } else {
+
+                                }
+                            }
+
+                            override fun onFailure(call: Call<Equipment>, t: Throwable) {
+                                TODO("Not yet implemented")
+                            }
+                        })
                     }
                 }}
             else{
@@ -195,13 +253,16 @@ class SecondFragment : Fragment() {
 
                         getocid = mapleInfo?.ocid.toString()
                         lifecycleScope.launch{ save(mapleNickName) } // mapleCall을 부르게되면 즉시 키값을 저장함
-
+                            Log.d("testApikey","testApikey = ${testApikey} ")
                         val characterCall = apiservicemaple.getCharacter(
                             testApikey,
                             "${getocid}",
                             "$yesterday"
                         )
                         var UnionCall = apiservicemaple.getUnion(
+                            testApikey,"${getocid}","${yesterday}"
+                        )
+                        var equipmentCall = apiservicemaple.getEquipment(
                             testApikey,"${getocid}","${yesterday}"
                         )
                         //getocid 가 null 이 아니면 = getocid가 획득된경우 (이전에 로컬에서 조회한적이 없는경우)
@@ -237,7 +298,7 @@ class SecondFragment : Fragment() {
                                 }
 
                                 override fun onFailure(call: Call<MapleData>, t: Throwable) {
-                                    TODO("Not yet implemented")
+                                    call.cancel()
                                 }
                             })
                         }
