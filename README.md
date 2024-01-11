@@ -12,7 +12,7 @@
 
 ** 업데이트 할 예정입니다. **<br/>
 - 아이디를 입력하면 캐릭터의 정보, 아이템이 조회됩니다. </br>
-- api 호출량을 줄이기 위해 입력받은 이름 =k ey 식별자 = value 를 쌍으로 key = value 형태로 저장합니다. (Room, Sharedpreferences-> deprecated 되어 공식문서가 권장하는 dataStore 사용 )<br/>
+- api 호출량을 줄이기 위해 입력받은 이름=key 식별자=value 를 쌍으로 key=value 형태로 저장합니다. (Sharedpreferences 가 deprecated 되어 공식문서가 권장하는 dataStore 사용해 보았습니다. )<br/>
 - viewModel 을 사용해 mvvm 아키텍쳐로 코드를 리팩토링합니다. <br/>
 
 넥슨api문서:https://openapi.nexon.com/game/maplestory/?id=22 <br/>
