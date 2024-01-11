@@ -203,6 +203,10 @@ class SecondFragment : Fragment() {
                                 call.cancel()
                             }
                         })
+                        //리싸이클러뷰의 데이터리스트를 equipmentCall을 부르기 전에 비움
+                        if (!dataList.isEmpty()) {
+                            dataList.clear()
+                        }
                         equipmentCall.enqueue(object:Callback<Equipment>{
                             override fun onResponse(
                                 call: Call<Equipment>,
@@ -227,6 +231,7 @@ class SecondFragment : Fragment() {
                                            dataList.add(it)
                                        }
                                     }
+
                                     adapter.notifyDataSetChanged()
 
                                 } else {
@@ -298,6 +303,10 @@ class SecondFragment : Fragment() {
                                     call.cancel()
                                 }
                             })
+                            //리싸이클러뷰의 데이터리스트를 equipmentCall을 부르기 전에 비움
+                            if (!dataList.isEmpty()) {
+                                dataList.clear()
+                            }
                             equipmentCall.enqueue(object:Callback<Equipment>{
                                 override fun onResponse(
                                     call: Call<Equipment>,
