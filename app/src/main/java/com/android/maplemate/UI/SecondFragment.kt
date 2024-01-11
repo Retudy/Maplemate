@@ -50,7 +50,7 @@ class SecondFragment : Fragment() {
     private lateinit var mapleNickName: String
     private lateinit var getocid:String
     private val currentDate: LocalDate = LocalDate.now()
-    private val yesterday = currentDate.minusDays(1)
+    private val yesterday = currentDate.minusDays(2)
     private val Context.preferenceDataStore: DataStore<Preferences> by preferencesDataStore(name = "getOcid")
 
     private val dataList = mutableListOf<Equipment.ItemEquipment?>()
@@ -80,12 +80,8 @@ class SecondFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // 리싸이클러뷰를 연결함 (여기서 미리추가한 더미데이터는 추가가 됨)
-
-//        binding.rvEqupipment.adapter = SecondFragmentAdapter(dataList) //recyclerview.adapter = 내가만든어뎁터(넣을데이터)
         // 1.livedata를 만들어서 > 데이터가 바뀔때 알아서 감지해준다.
-
-
+        // 2.ListAdapter를 사용 > ""
         binding.rvEqupipment.adapter = adapter  // 리싸이클러뷰 위젯 = adapter (내가만든 어뎁터)
         binding.rvEqupipment.layoutManager = LinearLayoutManager(context) // (레이아웃 매니저 설정)
 
@@ -207,12 +203,17 @@ class SecondFragment : Fragment() {
                                 call.cancel()
                             }
                         })
+                        //리싸이클러뷰의 데이터리스트를 equipmentCall을 부르기 전에 비움
+                        if (!dataList.isEmpty()) {
+                            dataList.clear()
+                        }
                         equipmentCall.enqueue(object:Callback<Equipment>{
                             override fun onResponse(
                                 call: Call<Equipment>,
                                 response: Response<Equipment>
                             ) {
                                 val data = response.body()
+
 
                                 val itemEquipment = data?.itemEquipment
                                 Log.d("item","${data?.itemEquipment}")
@@ -230,6 +231,7 @@ class SecondFragment : Fragment() {
                                            dataList.add(it)
                                        }
                                     }
+
                                     adapter.notifyDataSetChanged()
 
                                 } else {
@@ -238,7 +240,7 @@ class SecondFragment : Fragment() {
                             }
 
                             override fun onFailure(call: Call<Equipment>, t: Throwable) {
-                                TODO("Not yet implemented")
+                               call.cancel()
                             }
                         })
                     }
@@ -298,6 +300,44 @@ class SecondFragment : Fragment() {
                                 }
 
                                 override fun onFailure(call: Call<MapleData>, t: Throwable) {
+                                    call.cancel()
+                                }
+                            })
+                            //리싸이클러뷰의 데이터리스트를 equipmentCall을 부르기 전에 비움
+                            if (!dataList.isEmpty()) {
+                                dataList.clear()
+                            }
+                            equipmentCall.enqueue(object:Callback<Equipment>{
+                                override fun onResponse(
+                                    call: Call<Equipment>,
+                                    response: Response<Equipment>
+                                ) {
+                                    val data = response.body()
+
+                                    val itemEquipment = data?.itemEquipment
+                                    Log.d("item","${data?.itemEquipment}")
+
+
+
+
+                                    if (!itemEquipment.isNullOrEmpty()) {
+                                        val itemNames = itemEquipment.mapNotNull { it?.itemName } // 얘가 정상적으로 꺼내졌으니까
+                                        val itemsText = itemNames.joinToString("\n")
+                                        Log.d("Test","${itemsText}")
+//                                        Log.d("item","item:${itemNames}")
+                                        itemEquipment?.let{ list ->
+                                            list.forEach {
+                                                dataList.add(it)
+                                            }
+                                        }
+                                        adapter.notifyDataSetChanged()
+
+                                    } else {
+
+                                    }
+                                }
+
+                                override fun onFailure(call: Call<Equipment>, t: Throwable) {
                                     call.cancel()
                                 }
                             })
