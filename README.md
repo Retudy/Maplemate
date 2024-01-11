@@ -1,4 +1,4 @@
-# nexon api 사용 
+# maplestory 캐릭터 정보 검색
 ## 작성자: 윤동현
 
 <p align="center">
