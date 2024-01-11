@@ -1,3 +1,4 @@
+<p align="center">
 # maplestory 캐릭터 정보 검색
 ## 작성자: 윤동현
 
