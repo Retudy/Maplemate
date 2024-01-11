@@ -6,8 +6,11 @@
 
 
 <p align="center">
+  
 ![KakaoTalk_Image_2024-01-12-01-51-49_001](https://github.com/Retudy/Maplemate/assets/129308578/0291ee41-c2a5-44e5-a2ea-515ff4cf3c18)
-<p align="right">
+
+<p align="center">
+  
 ![KakaoTalk_Image_2024-01-12-01-51-49_002](https://github.com/Retudy/Maplemate/assets/129308578/ed711f78-ee44-488b-a704-8b86f11bb268)
 
 
