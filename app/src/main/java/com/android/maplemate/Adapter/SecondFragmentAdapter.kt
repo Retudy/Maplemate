@@ -2,6 +2,7 @@ package com.android.maplemate.Adapter
 
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
@@ -40,6 +41,13 @@ class SecondFragmentAdapter(val items: MutableList<Equipment.ItemEquipment?>) :
             //옵션1 조건처리
 
             when(item?.potentialOption1.toString()) {
+//                "null" -> binding.tvPotentail.visibility = View.GONE
+//                "null" -> binding.tvAddPotential.visibility = View.GONE
+//                "null" -> binding.tvOption1.visibility = View.GONE
+//                "null" -> binding.tvOption2.visibility = View.GONE
+//                "null" -> binding.tvOption3.visibility = View.GONE
+
+
                 "크리티컬 데미지 : +8%" -> binding.tvOption1.text = "크뎀 8%"
                 "<쓸만한 샤프 아이즈> 스킬 사용 가능" -> binding.tvOption1.text ="<쓸샾>"
                 "<쓸만한 윈드 부스터> 스킬 사용 가능" -> binding.tvOption1.text ="<쓸윈부>"
@@ -57,7 +65,8 @@ class SecondFragmentAdapter(val items: MutableList<Equipment.ItemEquipment?>) :
                 "캐릭터 기준 9레벨 당 DEX : +2" -> binding.tvOption1.text ="렙당DEX:+2"
                 "캐릭터 기준 9레벨 당 INT : +2" -> binding.tvOption1.text ="렙당INT:+2"
                 "캐릭터 기준 9레벨 당 LUK : +2" -> binding.tvOption1.text ="렙당LUK:+2"
-                "HP 회복 아이템 및 회복 스킬 효율 : +30%" -> binding.tvOption1.text = "HP효율+30%"
+                "HP 회복 아이템 및 회복 스킬 효율 : +30%" -> binding.tvOption1.text = "기타"
+                "4초 당 22의 MP 회복" -> binding.tvOption1.text = "기타"
                 else -> binding.tvOption1.text = item?.potentialOption1
             }
 
@@ -82,7 +91,8 @@ class SecondFragmentAdapter(val items: MutableList<Equipment.ItemEquipment?>) :
                 "캐릭터 기준 9레벨 당 DEX : +2" -> binding.tvOption2.text ="렙당DEX:+2"
                 "캐릭터 기준 9레벨 당 INT : +2" -> binding.tvOption2.text ="렙당INT:+2"
                 "캐릭터 기준 9레벨 당 LUK : +2" -> binding.tvOption2.text ="렙당LUK:+2"
-                "HP 회복 아이템 및 회복 스킬 효율 : +30%" -> binding.tvOption2.text = "HP효율+30%"
+                "HP 회복 아이템 및 회복 스킬 효율 : +30%" -> binding.tvOption2.text = "기타"
+                "4초 당 22의 MP 회복" -> binding.tvOption2.text = "기타"
                 else -> binding.tvOption2.text = item?.potentialOption2
             }
 
@@ -108,6 +118,7 @@ class SecondFragmentAdapter(val items: MutableList<Equipment.ItemEquipment?>) :
                 "캐릭터 기준 9레벨 당 INT : +2" -> binding.tvOption3.text ="렙당INT:+2"
                 "캐릭터 기준 9레벨 당 LUK : +2" -> binding.tvOption3.text ="렙당LUK:+2"
                 "HP 회복 아이템 및 회복 스킬 효율 : +30%" -> binding.tvOption3.text = "HP효율+30%"
+                "4초 당 22의 MP 회복" -> binding.tvOption3.text = "기타"
                 else -> binding.tvOption3.text = item?.potentialOption3
             }
             //에디1 조건처리
