@@ -2,17 +2,19 @@
 ## 작성자: 윤동현
 
 <p align="center">
-실행화면 입니다! <br/><br/>
+실행화면 입니다. <br/><br/>
 
 <p align="center">
-<img width="348" alt="스크린샷 2024-01-08 오후 5 17 48" src="https://github.com/Retudy/Maplemate/assets/129308578/1263b156-8154-42fd-a6d8-6e704fadb883">
-<img width="348" alt="스크린샷 2024-01-08 오후 7 16 34" src="https://github.com/Retudy/Maplemate/assets/129308578/bc502b36-3e45-40bf-af13-5e7ede415291">
+![KakaoTalk_Image_2024-01-12-01-51-49_001](https://github.com/Retudy/Maplemate/assets/129308578/bde2ced1-6420-4234-aa00-451dc4b713a4)
+![KakaoTalk_Image_2024-01-12-01-51-49_002](https://github.com/Retudy/Maplemate/assets/129308578/90855dd0-a3b7-4fea-bf08-7f994c2653c6)
+
+
 
 
 
 ** 업데이트 할 예정입니다. **<br/>
-- 불러온 데이터들을 즐겨찾기하는 기능을 리싸이클러뷰에 표시하고, 데이터를 다른 페이지에 표시합니다.<br/>
-- 데이터를 저장하고,출력 해봅니다 ( Room, Sharedpreferences-> deprecated 되어 공식문서가 권장하는 dataStore 사용 )<br/>
+- 아이디를 입력하면 캐릭터의 정보, 아이템이 조회됩니다. </br>
+- api 호출량을 줄이기 위해 입력받은 이름 =k ey 식별자 = value 를 쌍으로 key = value 형태로 저장합니다. (Room, Sharedpreferences-> deprecated 되어 공식문서가 권장하는 dataStore 사용 )<br/>
 - viewModel 을 사용해 mvvm 아키텍쳐로 코드를 리팩토링합니다. <br/>
 
 빗썸api문서:https://apidocs.bithumb.com/reference/%ED%98%B8%EA%B0%80-%EC%A0%95%EB%B3%B4-%EC%A1%B0%ED%9A%8C<br/>
