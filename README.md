@@ -7,8 +7,9 @@
 
 <p align="center">
   
-![KakaoTalk_Image_2024-01-12-01-51-49_001](https://github.com/Retudy/Maplemate/assets/129308578/0291ee41-c2a5-44e5-a2ea-515ff4cf3c18)
-![KakaoTalk_Image_2024-01-12-01-51-49_002](https://github.com/Retudy/Maplemate/assets/129308578/ed711f78-ee44-488b-a704-8b86f11bb268)
+![1](https://github.com/Retudy/Maplemate/assets/129308578/1d2b0e42-9b1f-408b-b298-206f6b051a0a)
+![2](https://github.com/Retudy/Maplemate/assets/129308578/69f4fecb-8512-4c65-a7d6-d1c3fcd76752)
+
 
 
 
