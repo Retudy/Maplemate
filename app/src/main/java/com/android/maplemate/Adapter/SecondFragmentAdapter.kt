@@ -40,7 +40,7 @@ class SecondFragmentAdapter(val items: MutableList<Equipment.ItemEquipment?>) :
             // 스타포스가 0 일때
             when(item?.starforce.toString()){
                 "0" -> binding.tvStarFoce.visibility = View.GONE
-                else -> binding.tvStarFoce.text = "${item?.starforce}성"
+                else -> binding.tvStarFoce.text = "⭐${item?.starforce}"
             }
             //옵션1 조건처리
 
@@ -80,7 +80,7 @@ class SecondFragmentAdapter(val items: MutableList<Equipment.ItemEquipment?>) :
             //옵션2 조건처리
             when(item?.potentialOption2.toString()) {
                 "크리티컬 데미지 : +8%" -> binding.tvOption2.text = "크뎀 8%"
-                "<쓸만한 샤프 아이즈> 스킬 사용 가능" -> binding.tvOption2.text ="쓸샾⭐️"
+                "<쓸만한 샤프 아이즈> 스킬 사용 가능" -> binding.tvOption2.text ="쓸샾⭐"
                 "<쓸만한 윈드 부스터> 스킬 사용 가능" -> binding.tvOption2.text ="쓸윈부🌪️"
                 "보스 몬스터 공격 시 데미지 : +40%" -> binding.tvOption2.text = "보공40%"
                 "보스 몬스터 공격 시 데미지 : +35%" -> binding.tvOption2.text = "보공35%"
