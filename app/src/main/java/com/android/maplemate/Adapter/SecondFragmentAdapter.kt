@@ -37,7 +37,11 @@ class SecondFragmentAdapter(val items: MutableList<Equipment.ItemEquipment?>) :
             binding.tvItemIcon.load(item?.itemIcon)
             binding.tvItemPartname.text = item?.itemEquipmentPart
             binding.tvItemName.text = item?.itemName
-            binding.tvStarFoce.text = "${item?.starforce}성"
+            // 스타포스가 0 일때
+            when(item?.starforce.toString()){
+                "0" -> binding.tvStarFoce.visibility = View.GONE
+                else -> binding.tvStarFoce.text = "${item?.starforce}성"
+            }
             //옵션1 조건처리
 
             when(item?.potentialOption1.toString()) {
@@ -46,6 +50,8 @@ class SecondFragmentAdapter(val items: MutableList<Equipment.ItemEquipment?>) :
 //                "null" -> binding.tvOption1.visibility = View.GONE
 //                "null" -> binding.tvOption2.visibility = View.GONE
 //                "null" -> binding.tvOption3.visibility = View.GONE
+                    "null" -> binding.framePotential.visibility = View.GONE
+                    "null" -> binding.frameAddPotential.visibility = View.GONE
 
 
                 "크리티컬 데미지 : +8%" -> binding.tvOption1.text = "크뎀 8%"
