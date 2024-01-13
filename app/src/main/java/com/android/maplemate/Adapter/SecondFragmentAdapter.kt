@@ -1,6 +1,7 @@
 package com.android.maplemate.Adapter
 
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +13,7 @@ import com.android.maplemate.databinding.FragmentSecondItemBinding
 
 class SecondFragmentAdapter(val items: MutableList<Equipment.ItemEquipment?>) :
     RecyclerView.Adapter<SecondFragmentAdapter.ViewHolder>() {
+
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -39,21 +41,14 @@ class SecondFragmentAdapter(val items: MutableList<Equipment.ItemEquipment?>) :
             binding.tvItemName.text = item?.itemName
             // 스타포스가 0 일때
             when(item?.starforce.toString()){
-                "0" -> binding.tvStarFoce.visibility = View.GONE
-                else -> binding.tvStarFoce.text = "${item?.starforce}성"
+                "0" -> binding.tvStarFoce.text = "⭐"
+                else -> binding.tvStarFoce.text = "⭐${item?.starforce}"
             }
             //옵션1 조건처리
 
             when(item?.potentialOption1.toString()) {
-//                "null" -> binding.tvPotentail.visibility = View.GONE
-//                "null" -> binding.tvAddPotential.visibility = View.GONE
-//                "null" -> binding.tvOption1.visibility = View.GONE
-//                "null" -> binding.tvOption2.visibility = View.GONE
-//                "null" -> binding.tvOption3.visibility = View.GONE
-                    "null" -> binding.framePotential.visibility = View.GONE
-                    "null" -> binding.frameAddPotential.visibility = View.GONE
 
-
+                 "null" -> binding.framePotential.visibility = View.GONE
                 "크리티컬 데미지 : +8%" -> binding.tvOption1.text = "크뎀 8%"
                 "<쓸만한 샤프 아이즈> 스킬 사용 가능" -> binding.tvOption1.text ="<쓸샾>"
                 "<쓸만한 윈드 부스터> 스킬 사용 가능" -> binding.tvOption1.text ="<쓸윈부>"
@@ -76,11 +71,17 @@ class SecondFragmentAdapter(val items: MutableList<Equipment.ItemEquipment?>) :
                 else -> binding.tvOption1.text = item?.potentialOption1
             }
 
+            var add = binding.framePotential.visibility
+
+            when (add){
+               View.GONE -> binding.frameAddPotential.visibility = View.GONE
+            }
+
 
             //옵션2 조건처리
             when(item?.potentialOption2.toString()) {
                 "크리티컬 데미지 : +8%" -> binding.tvOption2.text = "크뎀 8%"
-                "<쓸만한 샤프 아이즈> 스킬 사용 가능" -> binding.tvOption2.text ="쓸샾⭐️"
+                "<쓸만한 샤프 아이즈> 스킬 사용 가능" -> binding.tvOption2.text ="쓸샾⭐"
                 "<쓸만한 윈드 부스터> 스킬 사용 가능" -> binding.tvOption2.text ="쓸윈부🌪️"
                 "보스 몬스터 공격 시 데미지 : +40%" -> binding.tvOption2.text = "보공40%"
                 "보스 몬스터 공격 시 데미지 : +35%" -> binding.tvOption2.text = "보공35%"
@@ -101,6 +102,7 @@ class SecondFragmentAdapter(val items: MutableList<Equipment.ItemEquipment?>) :
                 "4초 당 22의 MP 회복" -> binding.tvOption2.text = "기타"
                 else -> binding.tvOption2.text = item?.potentialOption2
             }
+
 
             //옵션3 조건처리
             when(item?.potentialOption3.toString()) {
