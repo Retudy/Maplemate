@@ -1,11 +1,9 @@
 package com.android.maplemate.Adapter
 
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.android.maplemate.Data.Equipment
@@ -48,7 +46,7 @@ class SecondFragmentAdapter(val items: MutableList<Equipment.ItemEquipment?>) :
 
             when(item?.potentialOption1.toString()) {
 
-                 "null" -> binding.framePotential.visibility = View.GONE
+                "null" -> binding.framePotential.visibility = View.GONE
                 "크리티컬 데미지 : +8%" -> binding.tvOption1.text = "크뎀 8%"
                 "<쓸만한 샤프 아이즈> 스킬 사용 가능" -> binding.tvOption1.text ="<쓸샾>"
                 "<쓸만한 윈드 부스터> 스킬 사용 가능" -> binding.tvOption1.text ="<쓸윈부>"
@@ -58,6 +56,7 @@ class SecondFragmentAdapter(val items: MutableList<Equipment.ItemEquipment?>) :
                 "몬스터 방어율 무시 : +40%" -> binding.tvOption1.text = "방무40%"
                 "몬스터 방어율 무시 : +35%" -> binding.tvOption1.text = "방무35%"
                 "몬스터 방어율 무시 : +30%" -> binding.tvOption1.text = "방무30%"
+                "몬스터 방어율 무시 : +15%" -> binding.tvOption1.text = "방무15%"
                 "모든 스킬의 재사용 대기시간 : -2초(10초 이하는 10%감소, 5초 미만으로 감소 불가)" -> binding.tvOption1.text = "쿨감-2초"
                 "모든 스킬의 재사용 대기시간 : -1초(10초 이하는 5%감소, 5초 미만으로 감소 불가)" -> binding.tvOption1.text = "쿨감-1초"
                 "아이템 드롭률 : +20%" -> binding.tvOption1.text = "드랍 20%"
@@ -68,14 +67,17 @@ class SecondFragmentAdapter(val items: MutableList<Equipment.ItemEquipment?>) :
                 "캐릭터 기준 9레벨 당 LUK : +2" -> binding.tvOption1.text ="렙당LUK:+2"
                 "HP 회복 아이템 및 회복 스킬 효율 : +30%" -> binding.tvOption1.text = "기타"
                 "4초 당 22의 MP 회복" -> binding.tvOption1.text = "기타"
+                "공격 시 10% 확률로 5레벨 중독효과 적용" -> binding.tvOption1.text = "기타"
                 else -> binding.tvOption1.text = item?.potentialOption1
             }
 
-            var add = binding.framePotential.visibility
+            var fp = binding.framePotential.visibility
 
-            when (add){
+            when (fp){
                View.GONE -> binding.frameAddPotential.visibility = View.GONE
             }
+
+
 
 
             //옵션2 조건처리
@@ -89,7 +91,8 @@ class SecondFragmentAdapter(val items: MutableList<Equipment.ItemEquipment?>) :
                 "보스 몬스터 공격 시 데미지 : +20%" -> binding.tvOption2.text = "보공20%"
                 "몬스터 방어율 무시 : +40%" -> binding.tvOption2.text = "방무40%"
                 "몬스터 방어율 무시 : +35%" -> binding.tvOption2.text = "방무35%"
-                "몬스터 방어율 무시 : +30%" -> binding.tvOption2.text = "방무30%%"
+                "몬스터 방어율 무시 : +30%" -> binding.tvOption2.text = "방무30%"
+                "몬스터 방어율 무시 : +15%" -> binding.tvOption2.text = "방무15%"
                 "모든 스킬의 재사용 대기시간 : -2초(10초 이하는 10%감소, 5초 미만으로 감소 불가)" -> binding.tvOption2.text = "쿨감-2초"
                 "모든 스킬의 재사용 대기시간 : -1초(10초 이하는 5%감소, 5초 미만으로 감소 불가)" -> binding.tvOption2.text = "쿨감-1초"
                 "아이템 드롭률 : +20%" -> binding.tvOption2.text = "드랍 20%"
@@ -100,6 +103,7 @@ class SecondFragmentAdapter(val items: MutableList<Equipment.ItemEquipment?>) :
                 "캐릭터 기준 9레벨 당 LUK : +2" -> binding.tvOption2.text ="렙당LUK:+2"
                 "HP 회복 아이템 및 회복 스킬 효율 : +30%" -> binding.tvOption2.text = "기타"
                 "4초 당 22의 MP 회복" -> binding.tvOption2.text = "기타"
+                "공격 시 10% 확률로 5레벨 중독효과 적용" -> binding.tvOption2.text = "기타"
                 else -> binding.tvOption2.text = item?.potentialOption2
             }
 
@@ -114,9 +118,10 @@ class SecondFragmentAdapter(val items: MutableList<Equipment.ItemEquipment?>) :
                 "보스 몬스터 공격 시 데미지 : +35%" -> binding.tvOption3.text = "보공35%"
                 "보스 몬스터 공격 시 데미지 : +30%" -> binding.tvOption3.text = "보공30%"
                 "보스 몬스터 공격 시 데미지 : +20%" -> binding.tvOption3.text = "보공20%"
-                "몬스터 방어율 무시 : +40%" -> binding.tvOption2.text = "방무40%"
-                "몬스터 방어율 무시 : +35%" -> binding.tvOption2.text = "방무35%"
-                "몬스터 방어율 무시 : +30%" -> binding.tvOption2.text = "방무30%%"
+                "몬스터 방어율 무시 : +40%" -> binding.tvOption3.text = "방무40%"
+                "몬스터 방어율 무시 : +35%" -> binding.tvOption3.text = "방무35%"
+                "몬스터 방어율 무시 : +30%" -> binding.tvOption3.text = "방무30%%"
+                "몬스터 방어율 무시 : +15%" -> binding.tvOption3.text = "방무15%"
                 "모든 스킬의 재사용 대기시간 : -2초(10초 이하는 10%감소, 5초 미만으로 감소 불가)" -> binding.tvOption3.text = "쿨감-2초"
                 "모든 스킬의 재사용 대기시간 : -1초(10초 이하는 5%감소, 5초 미만으로 감소 불가)" -> binding.tvOption3.text = "쿨감-1초"
                 "아이템 드롭률 : +20%" -> binding.tvOption3.text = "드랍 20%"
@@ -127,10 +132,16 @@ class SecondFragmentAdapter(val items: MutableList<Equipment.ItemEquipment?>) :
                 "캐릭터 기준 9레벨 당 LUK : +2" -> binding.tvOption3.text ="렙당LUK:+2"
                 "HP 회복 아이템 및 회복 스킬 효율 : +30%" -> binding.tvOption3.text = "HP효율+30%"
                 "4초 당 22의 MP 회복" -> binding.tvOption3.text = "기타"
+                "공격 시 10% 확률로 5레벨 중독효과 적용" -> binding.tvOption3.text = "기타"
+                "공격 시 5% 확률로 2레벨 기절효과 적용" -> binding.tvOption3.text = "기타"
+
                 else -> binding.tvOption3.text = item?.potentialOption3
             }
             //에디1 조건처리
             when(item?.additionalPotentialOption1.toString()) {
+
+                "null" -> binding.frameAddPotential.visibility = View.GONE
+
                 "크리티컬 데미지 : +3%" -> binding.tvAddTvOption1.text = "크뎀 3%"
                 "크리티컬 데미지 : +1%" -> binding.tvAddTvOption1.text = "크뎀 1%"
                 "보스 몬스터 공격 시 데미지 : +18%" -> binding.tvAddTvOption1.text = "보공18%"
@@ -186,13 +197,6 @@ class SecondFragmentAdapter(val items: MutableList<Equipment.ItemEquipment?>) :
                 "캐릭터 기준 9레벨 당 LUK : +1" -> binding.tvAddTvOption3.text ="렙당LUK:+1"
                 else -> binding.tvAddTvOption3.text = item?.additionalPotentialOption3
             }
-
-
-
-
-
-
-
         }
     }
 }

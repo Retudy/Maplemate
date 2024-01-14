@@ -9,7 +9,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginLeft="20dp"
+        android:layout_marginLeft="37dp"
         android:orientation="vertical">
 
         <LinearLayout
@@ -33,6 +33,7 @@
                     android:id="@+id/tv_item_partname"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
                     android:text="부위명"
                     android:textStyle="bold" />
 
@@ -40,6 +41,7 @@
                     android:id="@+id/tv_item_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
                     android:text="장비명"
                     android:textStyle="bold" />
 
@@ -69,6 +71,7 @@
 
 
         <LinearLayout
+            android:id="@+id/frame_potential"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
@@ -106,6 +109,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/frame_add_potential"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal">

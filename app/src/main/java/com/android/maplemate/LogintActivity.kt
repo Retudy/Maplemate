@@ -23,7 +23,9 @@ class LogintActivity : AppCompatActivity() {
         NaverIdLoginSDK.initialize(this, "rHXQWOt6SkX4gMgrzUAC", "umoFtpt5wS", "Maplemate") //초기화 시켜줌
 
         binding.btnLogin.setOnClickListener {
+
             NaverIdLoginSDK.authenticate(this, launcher)
+
             val intent = Intent(this,MainActivity::class.java)
             startActivity(intent)
 

@@ -22,6 +22,7 @@ import com.android.maplemate.Adapter.SecondFragmentAdapter
 import com.android.maplemate.BuildConfig
 import com.android.maplemate.Data.Equipment
 import com.android.maplemate.Data.MapleData
+import com.android.maplemate.MainActivity
 import com.android.maplemate.Service.ApiServiceMaple
 import com.android.maplemate.databinding.FragmentSecondBinding
 import kotlinx.coroutines.flow.Flow
@@ -55,18 +56,25 @@ class SecondFragment : Fragment() {
     private lateinit var mapleNickName: String
     private lateinit var getocid: String
 
+    private val  date:MainActivity by lazy {MainActivity()}
+
+
     private val currentDate: LocalDate = LocalDate.now()
-    private var yesterday = currentDate.minusDays(1)
+    private var yesterday = currentDate.minusDays(1)  // yesterday 의값은 oncreate 에서 조건에 따라 변하므로 var로 선언
     private val now: LocalDateTime = LocalDateTime.now()
     private val startTime: LocalTime = LocalTime.of(0, 0)
     private val endTime: LocalTime = LocalTime.of(4, 0)
 
 
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         testApikey = "${BuildConfig.nexon_api_key}"
         mapleNickName = ""
         getocid = ""
+
 
         if (now.toLocalTime().isAfter(startTime) && now.toLocalTime().isBefore(endTime)) {
             Log.d("TimeCheck", "현재 시간은 00시~04시 사이입니다(넥슨 홈페이지 업데이트 이전).")
@@ -76,6 +84,7 @@ class SecondFragment : Fragment() {
             yesterday = currentDate.minusDays(1)
             Log.d("TimeCheck", "현재 시간은 04시 이후입니다(업데이트 후).")
             Log.d("TimeCheck", "yesterday: ${yesterday}")
+            Log.d("TimeCheck","${now}")
         }
     }
 
@@ -95,11 +104,13 @@ class SecondFragment : Fragment() {
 
         // 1.livedata를 만들어서 > 데이터가 바뀔때 알아서 감지해준다.
         // 2.ListAdapter를 사용 > ""
+
         binding.rvEqupipment.adapter = adapter  // 리싸이클러뷰 위젯 = adapter (내가만든 어뎁터)
         binding.rvEqupipment.layoutManager = LinearLayoutManager(context) // (레이아웃 매니저 설정)
 
 
         binding.btnSearch.setOnClickListener {
+
             mapleNickName = binding.searchView.text.toString()
 
             if (mapleNickName.isNotBlank()) {
@@ -223,19 +234,17 @@ class SecondFragment : Fragment() {
                             ) {
                                 val data = response.body()
 
-
                                 val itemEquipment = data?.itemEquipment
                                 Log.d("item", "${data?.itemEquipment}")
-
-
-
 
                                 if (!itemEquipment.isNullOrEmpty()) {
                                     val itemNames =
                                         itemEquipment.mapNotNull { it?.itemName } // 얘가 정상적으로 꺼내졌으니까
                                     val itemsText = itemNames.joinToString("\n")
+                                    val itfirstop = itemEquipment.mapNotNull { it?.itemAddOption }
+
                                     Log.d("Test", "${itemsText}")
-//                                        Log.d("item","item:${itemNames}")
+
                                     itemEquipment?.let { list ->
                                         list.forEach {
                                             dataList.add(it)
