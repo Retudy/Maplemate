@@ -111,7 +111,7 @@ class SecondFragment : Fragment() {
 
         binding.btnSearch.setOnClickListener {
 
-            mapleNickName = binding.searchView.text.trim().toString()
+            mapleNickName = binding.searchView.text.trim().replace(Regex(" "),"")
 
             if (mapleNickName.isNotBlank()) {
                 binding.apply {
