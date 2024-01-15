@@ -26,8 +26,6 @@ class LogintActivity : AppCompatActivity() {
 
             NaverIdLoginSDK.authenticate(this, launcher)
 
-            val intent = Intent(this,MainActivity::class.java)
-            startActivity(intent)
 
         }
         binding.btnDelete.setOnClickListener {
@@ -50,6 +48,8 @@ class LogintActivity : AppCompatActivity() {
                 }
             })
         }
+        val intent = Intent(this,MainActivity::class.java)
+        startActivity(intent)
     }
 
     private val launcher =
