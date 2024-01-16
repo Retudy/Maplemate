@@ -45,13 +45,16 @@ import java.time.LocalTime
 class SecondFragment : Fragment() {
     companion object {
         fun newInstance(): SecondFragment = SecondFragment()
+        private val startTime: LocalTime = LocalTime.of(0, 0)
+        private val endTime: LocalTime = LocalTime.of(4, 0)
     }
 
     private var _binding: FragmentSecondBinding? = null
+    private val binding get() = _binding!!
     private val Context.preferenceDataStore: DataStore<Preferences> by preferencesDataStore(name = "getOcid")
     private val dataList = mutableListOf<Equipment.ItemEquipment?>()
     private val adapter by lazy { SecondFragmentAdapter(dataList) }
-    private val binding get() = _binding!!
+
     private lateinit var testApikey: String
     private lateinit var mapleNickName: String
     private lateinit var getocid: String
@@ -62,8 +65,7 @@ class SecondFragment : Fragment() {
     private val currentDate: LocalDate = LocalDate.now()
     private var yesterday = currentDate.minusDays(1)  // yesterday 의값은 oncreate 에서 조건에 따라 변하므로 var로 선언
     private val now: LocalDateTime = LocalDateTime.now()
-    private val startTime: LocalTime = LocalTime.of(0, 0)
-    private val endTime: LocalTime = LocalTime.of(4, 0)
+
 
 
 
