@@ -197,6 +197,11 @@ class SecondFragmentAdapter(val items: MutableList<Equipment.ItemEquipment?>) :
                 "캐릭터 기준 9레벨 당 LUK : +1" -> binding.tvAddTvOption3.text ="렙당LUK:+1"
                 else -> binding.tvAddTvOption3.text = item?.additionalPotentialOption3
             }
+
+//            when(item?.potentialOption1.toString() && item?.potentialOption1&& item?.potentialOption1){
+//
+//                "크뎀8%" -> binding.tvOption1.text = "씨발 크크크다"
+//            }
         }
     }
 }
