@@ -60,7 +60,7 @@ dependencies {
 
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.fragment:fragment-ktx:1.6.1")
-    implementation("androidx.appcompat:appcompat:1.6.1") // naver 는 1.3.1
+    implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.10.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     //  코일라이브러리 ( 이미지 업로드 라이브러리 )
@@ -96,7 +96,6 @@ dependencies {
     implementation ("androidx.core:core-ktx:1.6.0")
     implementation ("com.airbnb.android:lottie:3.1.0")
     //
-//    implementation(files("libs/oauth-5.9.0.aar"))
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
