@@ -86,7 +86,6 @@ class SecondFragment : Fragment() {
             yesterday = currentDate.minusDays(1)
             Log.d("TimeCheck", "현재 시간은 04시 이후입니다(업데이트 후).")
             Log.d("TimeCheck", "yesterday: ${yesterday}")
-            Log.d("TimeCheck","${now}")
         }
     }
 

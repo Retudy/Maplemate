@@ -39,8 +39,10 @@ class SecondFragmentAdapter(val items: MutableList<Equipment.ItemEquipment?>) :
             binding.tvItemName.text = item?.itemName
             // 스타포스가 0 일때
             when(item?.starforce.toString()){
+
                 "0" -> binding.tvStarFoce.text = "⭐"
                 else -> binding.tvStarFoce.text = "⭐${item?.starforce}"
+
             }
             //옵션1 조건처리
 
@@ -68,7 +70,9 @@ class SecondFragmentAdapter(val items: MutableList<Equipment.ItemEquipment?>) :
                 "HP 회복 아이템 및 회복 스킬 효율 : +30%" -> binding.tvOption1.text = "기타"
                 "4초 당 22의 MP 회복" -> binding.tvOption1.text = "기타"
                 "공격 시 10% 확률로 5레벨 중독효과 적용" -> binding.tvOption1.text = "기타"
+
                 else -> binding.tvOption1.text = item?.potentialOption1
+
             }
 
             var fp = binding.framePotential.visibility
@@ -82,6 +86,7 @@ class SecondFragmentAdapter(val items: MutableList<Equipment.ItemEquipment?>) :
 
             //옵션2 조건처리
             when(item?.potentialOption2.toString()) {
+
                 "크리티컬 데미지 : +8%" -> binding.tvOption2.text = "크뎀 8%"
                 "<쓸만한 샤프 아이즈> 스킬 사용 가능" -> binding.tvOption2.text ="쓸샾⭐"
                 "<쓸만한 윈드 부스터> 스킬 사용 가능" -> binding.tvOption2.text ="쓸윈부🌪️"
@@ -105,6 +110,7 @@ class SecondFragmentAdapter(val items: MutableList<Equipment.ItemEquipment?>) :
                 "4초 당 22의 MP 회복" -> binding.tvOption2.text = "기타"
                 "공격 시 10% 확률로 5레벨 중독효과 적용" -> binding.tvOption2.text = "기타"
                 else -> binding.tvOption2.text = item?.potentialOption2
+
             }
 
 
