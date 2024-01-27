@@ -15,6 +15,7 @@ import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import coil.load
@@ -51,6 +52,7 @@ class SecondFragment : Fragment() {
 
     private var _binding: FragmentSecondBinding? = null
     private val binding get() = _binding!!
+    private val viewModel: SecondFragmentViewModel by viewModels()
     private val Context.preferenceDataStore: DataStore<Preferences> by preferencesDataStore(name = "getOcid")
     private val dataList = mutableListOf<Equipment.ItemEquipment?>()
     private val adapter by lazy { SecondFragmentAdapter(dataList) }
@@ -73,6 +75,8 @@ class SecondFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+
+
         testApikey = "${BuildConfig.nexon_api_key}"
         mapleNickName = ""
         getocid = ""
@@ -94,7 +98,6 @@ class SecondFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-
         _binding = FragmentSecondBinding.inflate(inflater, container, false)
         return binding.root
 
@@ -102,6 +105,12 @@ class SecondFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        viewModel.dataList.observe(viewLifecycleOwner) { newDataList ->
+            dataList.clear()
+            dataList.addAll(newDataList)
+            adapter.notifyDataSetChanged()
+        }
 
         // 1.livedata를 만들어서 > 데이터가 바뀔때 알아서 감지해준다.
         // 2.ListAdapter를 사용 > ""
@@ -225,9 +234,7 @@ class SecondFragment : Fragment() {
                             }
                         })
                         //리싸이클러뷰의 데이터리스트를 equipmentCall을 부르기 전에 비움
-                        if (!dataList.isEmpty()) {
-                            dataList.clear()
-                        }
+
                         equipmentCall.enqueue(object : Callback<Equipment> {
                             override fun onResponse(
                                 call: Call<Equipment>,
