@@ -48,7 +48,6 @@ class SecondFragmentAdapter(val items: MutableList<Equipment.ItemEquipment?>) :
 
             when(item?.potentialOption1.toString()) {
 
-                "null" -> binding.framePotential.visibility = View.GONE
                 "크리티컬 데미지 : +8%" -> binding.tvOption1.text = "크뎀 8%"
                 "<쓸만한 샤프 아이즈> 스킬 사용 가능" -> binding.tvOption1.text ="<쓸샾>"
                 "<쓸만한 윈드 부스터> 스킬 사용 가능" -> binding.tvOption1.text ="<쓸윈부>"
@@ -145,8 +144,6 @@ class SecondFragmentAdapter(val items: MutableList<Equipment.ItemEquipment?>) :
             }
             //에디1 조건처리
             when(item?.additionalPotentialOption1.toString()) {
-
-                "null" -> binding.frameAddPotential.visibility = View.GONE
 
                 "크리티컬 데미지 : +3%" -> binding.tvAddTvOption1.text = "크뎀 3%"
                 "크리티컬 데미지 : +1%" -> binding.tvAddTvOption1.text = "크뎀 1%"
