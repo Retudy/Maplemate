@@ -1,5 +1,6 @@
 package com.android.maplemate.UI
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
@@ -23,7 +24,6 @@ import com.android.maplemate.Adapter.SecondFragmentAdapter
 import com.android.maplemate.BuildConfig
 import com.android.maplemate.Data.Equipment
 import com.android.maplemate.Data.MapleData
-import com.android.maplemate.MainActivity
 import com.android.maplemate.Service.ApiServiceMaple
 import com.android.maplemate.databinding.FragmentSecondBinding
 import kotlinx.coroutines.flow.Flow
@@ -31,7 +31,6 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
-import okhttp3.internal.notifyAll
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -60,8 +59,6 @@ class SecondFragment : Fragment() {
     private lateinit var testApikey: String
     private lateinit var mapleNickName: String
     private lateinit var getocid: String
-
-    private val  date:MainActivity by lazy {MainActivity()}
 
 
     private val currentDate: LocalDate = LocalDate.now()
@@ -103,6 +100,7 @@ class SecondFragment : Fragment() {
 
     }
 
+    @SuppressLint("SuspiciousIndentation")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -111,6 +109,7 @@ class SecondFragment : Fragment() {
             dataList.addAll(newDataList)
             adapter.notifyDataSetChanged()
         }
+        //
 
         // 1.livedata를 만들어서 > 데이터가 바뀔때 알아서 감지해준다.
         // 2.ListAdapter를 사용 > ""
@@ -121,16 +120,17 @@ class SecondFragment : Fragment() {
 
         binding.btnSearch.setOnClickListener {
 
-            mapleNickName = binding.searchView.text.trim().replace(Regex(" "),"")
+             mapleNickName = binding.searchView.text.trim().replace(Regex(" "),"")
+                viewModel.setUserInput(mapleNickName)
 
             if (mapleNickName.isNotBlank()) {
                 binding.apply {
                     binding.boxSearch.isVisible = false
                     binding.boxResult.isVisible = true
                 }
-                lifecycleScope.launch {
-                    apiRequest(mapleNickName)
-                }
+//                lifecycleScope.launch {
+//                    apiRequest(mapleNickName)
+//                }
             } else {
                 Toast.makeText(requireContext(), "입력값이없어 UI가 변경되지 않음", Toast.LENGTH_SHORT).show()
                 Log.d("nexon", "입력값이없어 UI가 변경되지 않음")
