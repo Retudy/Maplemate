@@ -128,9 +128,9 @@ class SecondFragment : Fragment() {
                     binding.boxSearch.isVisible = false
                     binding.boxResult.isVisible = true
                 }
-//                lifecycleScope.launch {
-//                    apiRequest(mapleNickName)
-//                }
+                lifecycleScope.launch {
+                    apiRequest(mapleNickName)
+                }
             } else {
                 Toast.makeText(requireContext(), "입력값이없어 UI가 변경되지 않음", Toast.LENGTH_SHORT).show()
                 Log.d("nexon", "입력값이없어 UI가 변경되지 않음")
