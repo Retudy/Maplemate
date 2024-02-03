@@ -96,9 +96,6 @@ class SecondFragmentViewModel : ViewModel() {
         }
     }
 
-    fun updateDataList(newDataList: List<Equipment.ItemEquipment?>) {
-        _EquipmentList.value = newDataList
-    }
 
     fun setUserInput(mapleNickName: String) {
         _searchInput.value = mapleNickName
@@ -221,12 +218,12 @@ class SecondFragmentViewModel : ViewModel() {
         }
     }
 
-    fun addDataItem(newItem: List<Equipment.ItemEquipment?>?) {
-        if (!newItem.isNullOrEmpty()) {
-            val currentList = _EquipmentList.value ?: emptyList()
-            val updatedList = currentList.toMutableList().apply { addAll(newItem) }
-            _EquipmentList.value = updatedList
-        }
+    fun addDataItem(newItem: List<Equipment.ItemEquipment?>) {
 
+        if (!newItem.isNullOrEmpty()) {
+
+            _EquipmentList.value = newItem
+
+        }
     }
 }
