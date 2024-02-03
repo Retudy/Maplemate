@@ -106,7 +106,7 @@ class SecondFragment : Fragment() {
             // 리싸이클러뷰 데이터 업데이트
             adapter.submitList(newDataList)
             Log.d("RecyclerView", "Data List Size (Adapter): ${adapter.itemCount}")
-            Log.d("RecyclerView","submitList 되고있니?:${adapter.submitList(newDataList)}")
+            Log.d("RecyclerView", "submitList 되고있니?:${adapter.submitList(newDataList)}")
 
         }
     }

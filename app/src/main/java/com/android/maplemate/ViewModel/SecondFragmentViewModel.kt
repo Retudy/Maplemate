@@ -102,22 +102,18 @@ class SecondFragmentViewModel : ViewModel() {
     }
 
     fun apiRequest(mapleNickName: String) {
-        Log.d("nexon", "$yesterday")
-        //1.Retrofit 객체 초기화
+
         val retrofit: Retrofit = Retrofit.Builder()
             .baseUrl("https://open.api.nexon.com")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-        //2. service 객체 생성
+
         val apiservicemaple: ApiServiceMaple = retrofit.create(ApiServiceMaple::class.java)
 
-        //3. Call객체 생성
         val mapleCall: Call<MapleData> = apiservicemaple.getocid(
             testApikey,
             mapleNickName,
         )
-        Log.d("nexon", "저장된 데이터가 없어 호출량 -3 (식벌자/기본정보/유니온")
-        //4. 네트워크 통신
 
         mapleCall.enqueue(object : Callback<MapleData> {
             override fun onResponse(call: Call<MapleData>, response: Response<MapleData>) {
@@ -137,7 +133,6 @@ class SecondFragmentViewModel : ViewModel() {
                 var equipmentCall = apiservicemaple.getEquipment(
                     testApikey, "${getocid}", "${yesterday}"
                 )
-                //getocid 가 null 이 아니면 = getocid가 획득된경우 (이전에 로컬에서 조회한적이 없는경우)
                 if (getocid != null) {
 
                     characterCall.enqueue(object : Callback<MapleData> {
@@ -145,31 +140,20 @@ class SecondFragmentViewModel : ViewModel() {
                             call: Call<MapleData>,
                             response: Response<MapleData>
                         ) {
-                            val data = response.body()
-
-                            Log.d("Viewmodel", "onresponse")
-                            Log.d("Viewmodel", "식별자값:${getocid}")
-                            Log.d("Viewmodel", "리턴된날짜:${yesterday}")
-                            Log.d("Viewmodel", "${data?.characterName}")
-
                             handleApiResponse(response)
-
                         }
 
                         override fun onFailure(call: Call<MapleData>, t: Throwable) {
-                            Log.d("도착", "${getocid}")
+
                             call.cancel()
                         }
                     })
-//                    리싸이클러뷰의 데이터리스트를 equipmentCall을 부르기 전에 비움
                     equipmentCall.enqueue(object : Callback<Equipment> {
                         override fun onResponse(
                             call: Call<Equipment>,
                             response: Response<Equipment>
                         ) {
-
                             handleEquipmentResponse(response)
-
                         }
 
                         override fun onFailure(call: Call<Equipment>, t: Throwable) {

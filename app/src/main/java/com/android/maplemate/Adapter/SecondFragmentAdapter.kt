@@ -75,8 +75,9 @@ class SecondFragmentAdapter(val items: MutableList<Equipment.ItemEquipment?>) :
                 "캐릭터 기준 9레벨 당 INT : +2" -> binding.tvOption1.text ="렙당INT:+2"
                 "캐릭터 기준 9레벨 당 LUK : +2" -> binding.tvOption1.text ="렙당LUK:+2"
                 "HP 회복 아이템 및 회복 스킬 효율 : +30%" -> binding.tvOption1.text = "기타"
-                "4초 당 22의 MP 회복" -> binding.tvOption1.text = "기타"
-                "공격 시 10% 확률로 5레벨 중독효과 적용" -> binding.tvOption1.text = "기타"
+                "4초 당 22의 MP 회복" -> binding.tvOption1.text = "기타 ♻️"
+                "공격 시 10% 확률로 5레벨 중독효과 적용" -> binding.tvOption1.text = "기타 ♻️"
+                "30% 확률로 받은 피해의 70%를 반사" -> binding.tvOption3.text = "기타 ♻️"
 
                 else -> binding.tvOption1.text = item?.potentialOption1
 
@@ -116,6 +117,7 @@ class SecondFragmentAdapter(val items: MutableList<Equipment.ItemEquipment?>) :
                 "HP 회복 아이템 및 회복 스킬 효율 : +30%" -> binding.tvOption2.text = "기타"
                 "4초 당 22의 MP 회복" -> binding.tvOption2.text = "기타"
                 "공격 시 10% 확률로 5레벨 중독효과 적용" -> binding.tvOption2.text = "기타"
+                "30% 확률로 받은 피해의 70%를 반사" -> binding.tvOption2.text = "기타 ♻️"
                 else -> binding.tvOption2.text = item?.potentialOption2
 
             }
@@ -144,9 +146,10 @@ class SecondFragmentAdapter(val items: MutableList<Equipment.ItemEquipment?>) :
                 "캐릭터 기준 9레벨 당 INT : +2" -> binding.tvOption3.text ="렙당INT:+2"
                 "캐릭터 기준 9레벨 당 LUK : +2" -> binding.tvOption3.text ="렙당LUK:+2"
                 "HP 회복 아이템 및 회복 스킬 효율 : +30%" -> binding.tvOption3.text = "HP효율+30%"
-                "4초 당 22의 MP 회복" -> binding.tvOption3.text = "기타"
-                "공격 시 10% 확률로 5레벨 중독효과 적용" -> binding.tvOption3.text = "기타"
-                "공격 시 5% 확률로 2레벨 기절효과 적용" -> binding.tvOption3.text = "기타"
+                "4초 당 22의 MP 회복" -> binding.tvOption3.text = "기타 ♻️"
+                "공격 시 10% 확률로 5레벨 중독효과 적용" -> binding.tvOption3.text = "기타 ♻️"
+                "공격 시 5% 확률로 2레벨 기절효과 적용" -> binding.tvOption3.text = "기타 ♻️"
+                "30% 확률로 받은 피해의 70%를 반사" -> binding.tvOption3.text = "기타 ♻️"
 
                 else -> binding.tvOption3.text = item?.potentialOption3
             }
