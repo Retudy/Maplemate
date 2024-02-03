@@ -67,9 +67,9 @@ class SecondFragmentViewModel : ViewModel() {
     val searchInput: LiveData<String>
         get() = _searchInput
 
-    private val _dataList = MutableLiveData<List<Equipment.ItemEquipment>>()
-    val dataList: LiveData<List<Equipment.ItemEquipment>>
-        get() = _dataList
+    private val _EquipmentList = MutableLiveData<List<Equipment.ItemEquipment?>>() // 장비 데이터
+    val EquipmentList: LiveData<List<Equipment.ItemEquipment?>>
+        get() = _EquipmentList
 
     private val _userData = MutableLiveData<MapleData>()
     val userData: LiveData<MapleData> get() = _userData
@@ -78,7 +78,7 @@ class SecondFragmentViewModel : ViewModel() {
     // 초기값 설정
     init {
         Log.d(TAG, "SecondFragmentViewModel - 생성자 호출")
-        _dataList.value = emptyList()
+        _EquipmentList.value = emptyList()
         testApikey = "${BuildConfig.nexon_api_key}"
 
         if (now.toLocalTime().isAfter(SecondFragmentViewModel.startTime) && now.toLocalTime()
@@ -96,8 +96,8 @@ class SecondFragmentViewModel : ViewModel() {
         }
     }
 
-    fun updateDataList(newDataList: List<Equipment.ItemEquipment>) {
-        _dataList.value = newDataList
+    fun updateDataList(newDataList: List<Equipment.ItemEquipment?>) {
+        _EquipmentList.value = newDataList
     }
 
     fun setUserInput(mapleNickName: String) {
@@ -150,10 +150,10 @@ class SecondFragmentViewModel : ViewModel() {
                         ) {
                             val data = response.body()
 
-                            Log.d("Viewmodel","onresponse")
-                            Log.d("Viewmodel","식별자값:${getocid}")
-                            Log.d("Viewmodel","리턴된날짜:${yesterday}")
-                            Log.d("Viewmodel","${data?.characterName}")
+                            Log.d("Viewmodel", "onresponse")
+                            Log.d("Viewmodel", "식별자값:${getocid}")
+                            Log.d("Viewmodel", "리턴된날짜:${yesterday}")
+                            Log.d("Viewmodel", "${data?.characterName}")
 
                             handleApiResponse(response)
 
@@ -164,38 +164,21 @@ class SecondFragmentViewModel : ViewModel() {
                             call.cancel()
                         }
                     })
-                    //리싸이클러뷰의 데이터리스트를 equipmentCall을 부르기 전에 비움
-//                    equipmentCall.enqueue(object : Callback<Equipment> {
-//                        override fun onResponse(
-//                            call: Call<Equipment>,
-//                            response: Response<Equipment>
-//                        ) {
-//                            val data = response.body()
-//
-//                            val itemEquipment = data?.itemEquipment
-//                            Log.d("item", "${data?.itemEquipment}")
-//
-//                            if (!itemEquipment.isNullOrEmpty()) {
-//                                val itemNames =
-//                                    itemEquipment.mapNotNull { it?.itemName } // 얘가 정상적으로 꺼내졌으니까
-//                                val itemsText = itemNames.joinToString("\n")
-//                                Log.d("Test", "${itemsText}")
-//                                itemEquipment?.let { list ->
-//                                    list.forEach {
-//                                        _dataList.add(it)
-//                                    }
-//                                }
-//                                adapter.notifyDataSetChanged()
-//
-//                            } else {
-//
-//                            }
-//                        }
-//
-//                        override fun onFailure(call: Call<Equipment>, t: Throwable) {
-//                            call.cancel()
-//                        }
-//                    })
+//                    리싸이클러뷰의 데이터리스트를 equipmentCall을 부르기 전에 비움
+                    equipmentCall.enqueue(object : Callback<Equipment> {
+                        override fun onResponse(
+                            call: Call<Equipment>,
+                            response: Response<Equipment>
+                        ) {
+
+                            handleEquipmentResponse(response)
+
+                        }
+
+                        override fun onFailure(call: Call<Equipment>, t: Throwable) {
+                            call.cancel()
+                        }
+                    })
                 }
             }
 
@@ -205,6 +188,7 @@ class SecondFragmentViewModel : ViewModel() {
             }
         })
     }
+
     private fun handleApiResponse(response: Response<MapleData>) {
         if (response.isSuccessful) {
             val data = response.body()
@@ -215,7 +199,6 @@ class SecondFragmentViewModel : ViewModel() {
             _CharacterImage.value = "${data?.characterImage}"
             _CharacterLevel.value = "레벨:${data?.characterLevel}"
             _WorldName.value = "서버:${data?.worldName}"
-            Log.d("Viewmodel","_WorldName:${_WorldName.value}")
             _CharacterName.value = "닉네임:${data?.characterName}"
             _CharacterGuildName.value = "길드명:${data?.characterGuildName}"
             _CharacterExpRate.value = "경험치:${data?.characterExpRate}%"
@@ -223,5 +206,27 @@ class SecondFragmentViewModel : ViewModel() {
             // 실패 처리
             Log.e(TAG, "API 호출 실패: ${response.code()}")
         }
+    }
+
+    // 기존 데이터 업데이트 메서드
+    private fun handleEquipmentResponse(response: Response<Equipment>) {
+        if (response.isSuccessful) {
+            val data = response.body()?.itemEquipment
+
+            if (!data.isNullOrEmpty()) {
+
+                addDataItem(data)
+
+            }
+        }
+    }
+
+    fun addDataItem(newItem: List<Equipment.ItemEquipment?>?) {
+        if (!newItem.isNullOrEmpty()) {
+            val currentList = _EquipmentList.value ?: emptyList()
+            val updatedList = currentList.toMutableList().apply { addAll(newItem) }
+            _EquipmentList.value = updatedList
+        }
+
     }
 }
