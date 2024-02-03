@@ -2,6 +2,7 @@ package com.android.maplemate.UI
 
 import android.content.Context
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -17,6 +18,10 @@ import com.android.maplemate.Data.Equipment
 import com.android.maplemate.Data.MapleData
 import com.android.maplemate.ViewModel.SecondFragmentViewModel
 import com.android.maplemate.databinding.FragmentSecondBinding
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 
 class SecondFragment : Fragment() {
@@ -104,9 +109,10 @@ class SecondFragment : Fragment() {
         }
         viewModel.EquipmentList.observe(viewLifecycleOwner) { newDataList ->
             // 리싸이클러뷰 데이터 업데이트
-            adapter.submitList(newDataList)
-            Log.d("RecyclerView", "Data List Size (Adapter): ${adapter.itemCount}")
-            Log.d("RecyclerView", "submitList 되고있니?:${adapter.submitList(newDataList)}")
+            Handler().postDelayed({
+                adapter.submitList(newDataList)
+            }, 500) // 1000밀리초(1초)의 딜레이
+
 
         }
     }

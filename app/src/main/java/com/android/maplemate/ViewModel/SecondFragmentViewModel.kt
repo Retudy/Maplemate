@@ -154,6 +154,7 @@ class SecondFragmentViewModel : ViewModel() {
                             response: Response<Equipment>
                         ) {
                             handleEquipmentResponse(response)
+
                         }
 
                         override fun onFailure(call: Call<Equipment>, t: Throwable) {
@@ -194,20 +195,18 @@ class SecondFragmentViewModel : ViewModel() {
         if (response.isSuccessful) {
             val data = response.body()?.itemEquipment
 
+            Log.d("장비", "${data?.joinToString("\n") { it?.itemName ?: "null" }}")
+            Log.d("장비", "윗잠1:${data?.joinToString("\n") { it?.potentialOption1 ?: "null" }}")
+
             if (!data.isNullOrEmpty()) {
 
                 addDataItem(data)
-
             }
         }
     }
 
     fun addDataItem(newItem: List<Equipment.ItemEquipment?>) {
 
-        if (!newItem.isNullOrEmpty()) {
-
             _EquipmentList.value = newItem
-
-        }
     }
 }
