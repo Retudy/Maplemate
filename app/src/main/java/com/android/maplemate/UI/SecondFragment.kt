@@ -17,8 +17,6 @@ import com.android.maplemate.Data.Equipment
 import com.android.maplemate.Data.MapleData
 import com.android.maplemate.ViewModel.SecondFragmentViewModel
 import com.android.maplemate.databinding.FragmentSecondBinding
-import java.time.LocalDate
-import java.time.LocalDateTime
 
 
 class SecondFragment : Fragment() {
@@ -33,12 +31,6 @@ class SecondFragment : Fragment() {
     private val adapter by lazy { SecondFragmentAdapter(dataList) }
 
     private lateinit var mapleNickName: String
-
-
-    private val currentDate: LocalDate = LocalDate.now()
-    private var yesterday =
-        currentDate.minusDays(1)  // yesterday 의값은 oncreate 에서 조건에 따라 변하므로 var로 선언y
-    private val now: LocalDateTime = LocalDateTime.now()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -66,9 +58,7 @@ class SecondFragment : Fragment() {
         binding.rvEqupipment.adapter = adapter  // 리싸이클러뷰 위젯 = adapter (내가만든 어뎁터)
         binding.rvEqupipment.layoutManager = LinearLayoutManager(context) // (레이아웃 매니저 설정)
 
-        viewModel.userData.observe(viewLifecycleOwner) { userData ->
-            updateUI(userData)
-        }
+        observeViewModel()
 
 
 
@@ -78,14 +68,16 @@ class SecondFragment : Fragment() {
             viewModel.setUserInput(mapleNickName)
 
             if (mapleNickName.isNotBlank()) {
+
                 binding.apply {
                     binding.boxSearch.isVisible = false
                     binding.boxResult.isVisible = true
                 }
-                // viewmodel에서 api를 호출하도록 수정
+
                 viewModel.apiRequest(mapleNickName)
+
             } else {
-                Toast.makeText(requireContext(), "입력값이없어 UI가 변경되지 않음", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "캐릭터명을 입력해주세요", Toast.LENGTH_SHORT).show()
                 Log.d("nexon", "입력값이없어 UI가 변경되지 않음")
             }
         }
@@ -103,6 +95,19 @@ class SecondFragment : Fragment() {
 
     }
 
+    private fun observeViewModel() {
+        viewModel.userData.observe(viewLifecycleOwner) { newDataList ->
+            // 새로운 데이터 리스트로 UI 업데이트
+            updateUI(newDataList)
+
+        }
+        viewModel.EquipmentList.observe(viewLifecycleOwner) { newDataList ->
+            // 리싸이클러뷰 데이터 업데이트
+            adapter.submitList(newDataList)
+            Log.d("RecyclerView", "Data List Size (Adapter): ${adapter.itemCount}")
+
+        }
+    }
 
     private fun updateUI(userData: MapleData?) {
 
@@ -115,6 +120,6 @@ class SecondFragment : Fragment() {
             binding.tvCharacterExpRate.text = "경험치:${it?.characterExpRate}%"
 
         }
-
     }
+
 }

@@ -29,6 +29,14 @@ class SecondFragmentAdapter(val items: MutableList<Equipment.ItemEquipment?>) :
         return items.size
     }
 
+    fun submitList(newList: List<Equipment.ItemEquipment?>) {
+
+        items.clear()
+        items.addAll(newList)
+        notifyDataSetChanged()
+    }
+
+
     inner class ViewHolder(val binding: FragmentSecondItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
