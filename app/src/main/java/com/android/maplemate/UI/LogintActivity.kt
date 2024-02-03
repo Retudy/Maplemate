@@ -1,4 +1,4 @@
-package com.android.maplemate
+package com.android.maplemate.UI
 
 import android.content.ContentValues.TAG
 import android.content.Intent
@@ -48,7 +48,7 @@ class LogintActivity : AppCompatActivity() {
                 }
             })
         }
-        val intent = Intent(this,MainActivity::class.java)
+        val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
     }
 
