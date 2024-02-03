@@ -28,7 +28,7 @@
 - ViewModel 사용, LiveData 적용</br>
 24.02.04</br>
 - 아이템의 1번 옵션이 없을시 해당 View를 GONE 처리 할때, 해당 리스트가 아닌 다른 리스트의 옵션이 사라지는 문제 해결 
-
+<p align="center">
 ** nexon maple api 발견된 문제 **</br>
 
 - 고레벨 캐릭터의 경우에 DTO에 (경험치) character_exp:Int? 로 받을 경우에 정수 범위를 초과하여 Long으로 변경하여 받습니다.
