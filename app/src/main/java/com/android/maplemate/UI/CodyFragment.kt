@@ -1,19 +1,19 @@
 package com.android.maplemate.UI
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.android.maplemate.databinding.FragmentStudyBinding
+import androidx.fragment.app.Fragment
+import com.android.maplemate.databinding.FragmentCodyBinding
 
 
-class KyuFragment : Fragment() {
+class CodyFragment : Fragment() {
     companion object {
-        fun newinstance(): KyuFragment = KyuFragment()
+        fun newinstance(): CodyFragment = CodyFragment()
     }
 
-    private var _binding: FragmentStudyBinding? = null
+    private var _binding: FragmentCodyBinding? = null
     private val binding get() = _binding!!
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,7 +25,7 @@ class KyuFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentStudyBinding.inflate(inflater, container, false)
+        _binding = FragmentCodyBinding.inflate(inflater, container, false)
         return binding.root
     }
 
