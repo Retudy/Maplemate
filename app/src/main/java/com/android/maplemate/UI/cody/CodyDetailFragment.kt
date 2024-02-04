@@ -1,24 +1,26 @@
 package com.android.maplemate.UI.cody
 
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import android.view.WindowManager
+import androidx.fragment.app.DialogFragment
 import coil.load
 import com.android.maplemate.BuildConfig
 import com.android.maplemate.Data.Cash
 import com.android.maplemate.Data.MapleData
 import com.android.maplemate.Data.RetrofitModule
-import com.android.maplemate.Util
 import com.android.maplemate.databinding.FragmentCodyDetailBinding
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.time.LocalDate
 
-class CodyDetailFragment : Fragment() {
+class CodyDetailFragment : DialogFragment() {
     private var _binding: FragmentCodyDetailBinding? = null
     private val binding: FragmentCodyDetailBinding get() = _binding!!
 
@@ -31,6 +33,13 @@ class CodyDetailFragment : Fragment() {
         return binding.root
     }
 
+    override fun onResume() {
+        super.onResume()
+        dialog?.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
+        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.WHITE))
+        dialog?.window?.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND)
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -41,7 +50,21 @@ class CodyDetailFragment : Fragment() {
             getCodyData(ocid)
             getProfileImage(ocid)
         }
+
+        initView()
+
     }
+
+    private fun initView() {
+        binding.imgCodyBack.setOnClickListener {
+            dismiss()
+        }
+    }
+
+    private fun initViewModel() {
+
+    }
+
 
     private fun getCodyData(ocid: String) {
         val service = RetrofitModule.createMapleApiService()
@@ -94,7 +117,7 @@ class CodyDetailFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        Util.hideOrShowBottomNavigationView(requireContext(), true)
+//        Util.hideOrShowBottomNavigationView(requireContext(), true)
         _binding = null
     }
 

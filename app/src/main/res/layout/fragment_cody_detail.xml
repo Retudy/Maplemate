@@ -18,6 +18,15 @@
         app:tint="#80000000" />
 
     <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/img_cody_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:src="@drawable/arrow_left"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/img_cody_main_avatar"
         android:layout_width="100dp"
         android:layout_height="100dp"

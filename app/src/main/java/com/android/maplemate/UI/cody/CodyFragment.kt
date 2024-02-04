@@ -10,7 +10,6 @@ import androidx.fragment.app.Fragment
 import com.android.maplemate.BuildConfig
 import com.android.maplemate.Data.MapleData
 import com.android.maplemate.Data.RetrofitModule
-import com.android.maplemate.R
 import com.android.maplemate.UI.SecondFragment
 import com.android.maplemate.Util.hideOrShowBottomNavigationView
 import com.android.maplemate.databinding.FragmentCodyBinding
@@ -94,16 +93,12 @@ class CodyFragment : Fragment() {
     }
 
     fun showFullDialog(ocid: String) {
-        hideOrShowBottomNavigationView(requireContext(), false)
+//        hideOrShowBottomNavigationView(requireContext(), false)
         val childFragment = CodyDetailFragment()
-        val transaction = parentFragmentManager.beginTransaction()
-        transaction.replace(R.id.fragmentContainer, childFragment)
-        transaction.addToBackStack(null)
-        transaction.commit()
         val args = Bundle()
         args.putString("ocid", ocid)
         childFragment.arguments = args
-
+        childFragment.show(parentFragmentManager, "CodyDetailFragment")
     }
 
     override fun onDestroyView() {
