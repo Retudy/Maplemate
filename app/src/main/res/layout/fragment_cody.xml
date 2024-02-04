@@ -3,15 +3,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/fragmentContainer"
     android:orientation="vertical"
-    tools:context=".UI.CodyFragment">
+    tools:context=".UI.cody.CodyFragment">
 
     <EditText
         android:id="@+id/edt_cody_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
-        android:hint="검색 예시: etc,btc"
+        android:hint="캐릭터명 입력"
         android:textAlignment="center" />
 
     <Button
