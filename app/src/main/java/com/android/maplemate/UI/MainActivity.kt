@@ -1,21 +1,13 @@
-package com.android.maplemate
+package com.android.maplemate.UI
 
-import android.content.Context
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.preferencesDataStore
 import androidx.viewpager2.widget.ViewPager2
 import com.android.maplemate.Adapter.ViewPager2Adapter
+import com.android.maplemate.R
 import com.android.maplemate.databinding.ActivityMainBinding
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
-import java.time.LocalDate
-import java.time.LocalDateTime
-import java.time.LocalTime
 
 
 class MainActivity : AppCompatActivity() {
