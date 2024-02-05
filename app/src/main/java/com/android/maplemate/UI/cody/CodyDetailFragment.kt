@@ -9,7 +9,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.fragment.app.DialogFragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import coil.load
+import com.android.maplemate.Adapter.CodyFragmentAdapter
 import com.android.maplemate.BuildConfig
 import com.android.maplemate.Data.Cash
 import com.android.maplemate.Data.MapleData
@@ -23,6 +25,9 @@ import java.time.LocalDate
 class CodyDetailFragment : DialogFragment() {
     private var _binding: FragmentCodyDetailBinding? = null
     private val binding: FragmentCodyDetailBinding get() = _binding!!
+
+    private lateinit var codyAdapter: CodyFragmentAdapter
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,12 +52,12 @@ class CodyDetailFragment : DialogFragment() {
         Log.d("codyDetailOcid", ocid.toString())
 
         if (ocid != null) {
-            getCodyData(ocid)
+//            getCodyData(ocid)
             getProfileImage(ocid)
         }
 
         initView()
-
+initViewModel()
     }
 
     private fun initView() {
@@ -61,8 +66,10 @@ class CodyDetailFragment : DialogFragment() {
         }
     }
 
-    private fun initViewModel() {
-
+    private fun initViewModel()=binding.apply{
+        codyAdapter = CodyFragmentAdapter()
+        rvCody.adapter = codyAdapter
+        rvCody.layoutManager = LinearLayoutManager(context)
     }
 
 
