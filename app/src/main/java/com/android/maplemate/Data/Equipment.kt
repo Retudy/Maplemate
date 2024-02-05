@@ -4,15 +4,15 @@ import com.google.gson.annotations.SerializedName
 
 data class Equipment(
     @SerializedName("character_class")
-    val characterClass: String?,  //섀도어
+    val characterClass: String?,  //
     @SerializedName("character_gender")
-    val characterGender: String?,  //여
+    val characterGender: String?,  //성별
     @SerializedName("date")
     val date: String?, // 조회날짜
     @SerializedName("dragon_equipment")
     val dragonEquipment: List<DragonEquipment?>?, // 비어있음
     @SerializedName("item_equipment")
-    val itemEquipment: List<ItemEquipment?>?,
+    val itemEquipment: List<ItemEquipment?>?,  // 장비아이템
     @SerializedName("mechanic_equipment")
     val mechanicEquipment: List<MechanicEquipment?>?,
     @SerializedName("title")
