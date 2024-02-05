@@ -9,7 +9,8 @@
 
 <p align="center">
   
-<img width="717" alt="스크린샷 2024-01-12 오전 2 10 10" src="https://github.com/Retudy/Maplemate/assets/129308578/765d7cb9-58fc-4c95-ba3c-c100698fedf9">
+<img width="296" alt="스크린샷 2024-02-06 오전 12 11 23" src="https://github.com/Retudy/Maplemate/assets/129308578/b9fd1d85-e75a-4743-8419-3fa5e0087a2f">
+
 
 <p align="center">
 ** 업데이트 내용** <br/>
