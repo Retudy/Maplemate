@@ -16,6 +16,8 @@ import coil.load
 import com.android.maplemate.Adapter.SecondFragmentAdapter
 import com.android.maplemate.Data.Equipment
 import com.android.maplemate.Data.MapleData
+import com.android.maplemate.ItemSpacingDecoration
+import com.android.maplemate.R
 import com.android.maplemate.ViewModel.SecondFragmentViewModel
 import com.android.maplemate.databinding.FragmentSecondBinding
 import kotlinx.coroutines.CoroutineScope
@@ -33,7 +35,7 @@ class SecondFragment : Fragment() {
     private val binding get() = _binding!!
     private val viewModel: SecondFragmentViewModel by viewModels()
     private val dataList = mutableListOf<Equipment.ItemEquipment?>()
-    private val adapter by lazy { SecondFragmentAdapter(dataList) }
+    private val adapter by lazy { SecondFragmentAdapter(requireContext(),dataList) }
 
     private lateinit var mapleNickName: String
 
@@ -62,6 +64,10 @@ class SecondFragment : Fragment() {
 
         binding.rvEqupipment.adapter = adapter  // 리싸이클러뷰 위젯 = adapter (내가만든 어뎁터)
         binding.rvEqupipment.layoutManager = LinearLayoutManager(context) // (레이아웃 매니저 설정)
+
+        val spacingInPixels = resources.getDimensionPixelSize(R.dimen.spacing) //리싸이클러뷰 간격 설정
+
+        binding.rvEqupipment.addItemDecoration(ItemSpacingDecoration(spacingInPixels))
         observeViewModel()
 
 
@@ -84,7 +90,6 @@ class SecondFragment : Fragment() {
 
             } else {
                 Toast.makeText(requireContext(), "캐릭터명을 입력해주세요", Toast.LENGTH_SHORT).show()
-                Log.d("nexon", "입력값이없어 UI가 변경되지 않음")
             }
         }
         binding.ivBackButton.setOnClickListener {

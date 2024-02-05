@@ -196,7 +196,12 @@ class SecondFragmentViewModel : ViewModel() {
             val data = response.body()?.itemEquipment
 
             Log.d("장비", "${data?.joinToString("\n") { it?.itemName ?: "null" }}")
-            Log.d("장비", "윗잠1:${data?.joinToString("\n") { it?.potentialOption1 ?: "null" }}")
+            Log.d("장비","에디등급:${data?.joinToString("\n") { it?.potentialOptionGrade ?: "null" }}")
+            Log.d("등급", "에디등급: ${data?.map { it?.additionalPotentialOptionGrade }}")
+            Log.d("등급", "윗잠등급: ${data?.map { it?.potentialOptionGrade }}")
+            Log.d("추옵", "윗잡등급: ${data?.map { it?.itemAddOption }}")
+//            Log.d("추옵", "윗잡등급: ${data?.joinToString("\n") { it?.itemAddOption ?: "null" }}")
+
 
             if (!data.isNullOrEmpty()) {
 
