@@ -8,8 +8,8 @@
 
 
 <p align="center">
-  
-<img width="296" alt="스크린샷 2024-02-06 오전 12 11 23" src="https://github.com/Retudy/Maplemate/assets/129308578/b9fd1d85-e75a-4743-8419-3fa5e0087a2f">
+  <img width="303" alt="스크린샷 2024-02-06 오전 12 17 23" src="https://github.com/Retudy/Maplemate/assets/129308578/1fc4dccc-e8c7-4a6e-9cfd-a2546b437eb2">
+
 
 
 <p align="center">
