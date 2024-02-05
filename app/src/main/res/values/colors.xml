@@ -5,4 +5,11 @@
     <color name="maplecolor">#E9C46A</color>
     <color name="searchoutline">#555555</color>
     <color name="Gray100">#F5F5F5</color>
+    <color name="Gray1">#C0C1C9</color>
+    <color name="Legendary">#42C961</color>
+    <color name="Unique">#F5CC46</color>
+    <color name="Epic">#7878A8</color>
+    <color name="Normal">#98B6D8</color>
+    <color name="Pink">#FFCCE5</color>
+    <color name="TestColor">#80404040</color>
 </resources>
