@@ -203,7 +203,7 @@ class SecondFragmentViewModel : ViewModel() {
             Log.d("추옵", "윗잡등급: ${data?.map { it?.itemAddOption }}")
 //            Log.d("추옵", "윗잡등급: ${data?.joinToString("\n") { it?.itemAddOption ?: "null" }}")
             Log.d("윗잠","윗잠1번옵션:${data?.map { it?.potentialOption1 }}")
-            Log.d("윗잠","윗잠2번옵션:${data?.map { it?.potentialOption3 }}")
+            Log.d("윗잠","윗잠2번옵션:${data?.map { it?.potentialOption2 }}")
             Log.d("윗잠","윗잠3번옵션:${data?.map { it?.potentialOption3 }}")
 
 
