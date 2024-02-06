@@ -195,12 +195,21 @@ class SecondFragmentViewModel : ViewModel() {
         if (response.isSuccessful) {
             val data = response.body()?.itemEquipment
 
+            // 문자열 긴거 찾기용 로그
             Log.d("장비", "${data?.joinToString("\n") { it?.itemName ?: "null" }}")
             Log.d("장비","에디등급:${data?.joinToString("\n") { it?.potentialOptionGrade ?: "null" }}")
             Log.d("등급", "에디등급: ${data?.map { it?.additionalPotentialOptionGrade }}")
             Log.d("등급", "윗잠등급: ${data?.map { it?.potentialOptionGrade }}")
             Log.d("추옵", "윗잡등급: ${data?.map { it?.itemAddOption }}")
 //            Log.d("추옵", "윗잡등급: ${data?.joinToString("\n") { it?.itemAddOption ?: "null" }}")
+            Log.d("윗잠","윗잠1번옵션:${data?.map { it?.potentialOption1 }}")
+            Log.d("윗잠","윗잠2번옵션:${data?.map { it?.potentialOption3 }}")
+            Log.d("윗잠","윗잠3번옵션:${data?.map { it?.potentialOption3 }}")
+
+
+            Log.d("잠재","에디1번옵션:${data?.map { it?.additionalPotentialOption1 }}")
+            Log.d("잠재","에디2번옵션:${data?.map { it?.additionalPotentialOption2 }}")
+            Log.d("잠재","에디3번옵션:${data?.map { it?.additionalPotentialOption3 }}")
 
 
             if (!data.isNullOrEmpty()) {
