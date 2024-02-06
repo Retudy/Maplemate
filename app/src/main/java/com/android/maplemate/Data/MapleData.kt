@@ -1,7 +1,6 @@
 package com.android.maplemate.Data
 
 import com.google.gson.annotations.SerializedName
-import java.io.Serial
 
 data class MapleData(
     @SerializedName("ocid")
