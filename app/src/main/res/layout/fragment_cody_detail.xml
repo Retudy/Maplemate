@@ -23,8 +23,8 @@
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:src="@drawable/arrow_left"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/img_cody_main_avatar"
@@ -40,6 +40,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#EDEDED"
+        app:layout_constrainedHeight="true"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/bg_cody"
         tools:listitem="@layout/fragment_cody_detail_item" />
 

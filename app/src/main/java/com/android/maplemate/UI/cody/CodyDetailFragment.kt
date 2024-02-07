@@ -28,7 +28,6 @@ class CodyDetailFragment : DialogFragment() {
 
     private lateinit var codyAdapter: CodyFragmentAdapter
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -52,12 +51,12 @@ class CodyDetailFragment : DialogFragment() {
         Log.d("codyDetailOcid", ocid.toString())
 
         if (ocid != null) {
-//            getCodyData(ocid)
+            getCodyData(ocid)
             getProfileImage(ocid)
         }
 
         initView()
-initViewModel()
+        initViewModel()
     }
 
     private fun initView() {
@@ -66,7 +65,7 @@ initViewModel()
         }
     }
 
-    private fun initViewModel()=binding.apply{
+    private fun initViewModel() = binding.apply {
         codyAdapter = CodyFragmentAdapter()
         rvCody.adapter = codyAdapter
         rvCody.layoutManager = LinearLayoutManager(context)
@@ -76,18 +75,18 @@ initViewModel()
     private fun getCodyData(ocid: String) {
         val service = RetrofitModule.createMapleApiService()
         val call: Call<Cash> = service.getCashItem(
-            apiKey = BuildConfig.nexon_api_key, ocid = ocid, date = "2024-02-01"
+            apiKey = BuildConfig.nexon_api_key, ocid = ocid, date = LocalDate.now().minusDays(1).toString()
         )
-
         call.enqueue(object : Callback<Cash> {
-
             override fun onResponse(call: Call<Cash>, response: Response<Cash>) {
                 if (response.isSuccessful) {
                     val responseBody = response.body()
-                    val iconUrl = responseBody?.cashItemEquipmentPreset2?.firstOrNull()?.cashItemIcon
-                    if (!iconUrl.isNullOrEmpty()) {
-                        Log.d("test12345", iconUrl)
-                    }
+                    val itemList = responseBody?.cashItemEquipmentPreset1 ?: emptyList()
+
+                    codyAdapter.setItems(itemList)
+
+                    codyAdapter.notifyDataSetChanged()
+
                 } else {
                     Log.d("responseError", response.errorBody().toString())
                 }
@@ -112,7 +111,7 @@ initViewModel()
                     val avatar = responseBody?.characterImage
                     if (!avatar.isNullOrEmpty()) {
                         binding.imgCodyMainAvatar.load(avatar)
-                        Log.d("test12345", avatar)
+                        Log.d("test912345", avatar)
                     }
                 }
             }

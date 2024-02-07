@@ -11,7 +11,6 @@ import com.android.maplemate.BuildConfig
 import com.android.maplemate.Data.MapleData
 import com.android.maplemate.Data.RetrofitModule
 import com.android.maplemate.UI.SecondFragment
-import com.android.maplemate.Util.hideOrShowBottomNavigationView
 import com.android.maplemate.databinding.FragmentCodyBinding
 import retrofit2.Call
 import retrofit2.Callback
