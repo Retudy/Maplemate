@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity() {
                 viewPagerAdapter.findFragmentTabIndex(R.string.member_second),
                 false
             )
-            setUserInputEnabled(true) //  viewpager 의 슬라이드를 담당하는 메서드
+            setUserInputEnabled(false) //  viewpager 의 슬라이드를 담당하는 메서드
         }
     }
 

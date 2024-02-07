@@ -8,8 +8,9 @@
 
 
 <p align="center">
-  
-<img width="717" alt="스크린샷 2024-01-12 오전 2 10 10" src="https://github.com/Retudy/Maplemate/assets/129308578/765d7cb9-58fc-4c95-ba3c-c100698fedf9">
+  <img width="303" alt="스크린샷 2024-02-06 오전 12 17 23" src="https://github.com/Retudy/Maplemate/assets/129308578/1fc4dccc-e8c7-4a6e-9cfd-a2546b437eb2">
+
+
 
 <p align="center">
 ** 업데이트 내용** <br/>
@@ -27,7 +28,9 @@
 24.02.04</br>
 - ViewModel 사용, LiveData 적용</br>
 24.02.04</br>
-- 아이템의 1번 옵션이 없을시 해당 View를 GONE 처리 할때, 해당 리스트가 아닌 다른 리스트의 옵션이 사라지는 문제 해결 
+- 아이템의 1번 옵션이 없을시 해당 View를 GONE 처리 할때, 해당 리스트가 아닌 다른 리스트의 옵션이 사라지는 문제 해결</br>
+24.02.06</b>
+- 잠재능력 옵션의 등급에 따라 색상이 표시되도록 변경, 및 디자인 수정
 <p align="center">
 ** nexon maple api 발견된 문제 **</br>
 

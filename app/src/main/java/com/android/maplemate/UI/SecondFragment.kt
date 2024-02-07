@@ -1,9 +1,7 @@
 package com.android.maplemate.UI
 
-import android.content.Context
 import android.os.Bundle
 import android.os.Handler
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -16,12 +14,10 @@ import coil.load
 import com.android.maplemate.Adapter.SecondFragmentAdapter
 import com.android.maplemate.Data.Equipment
 import com.android.maplemate.Data.MapleData
+import com.android.maplemate.ItemSpacingDecoration
+import com.android.maplemate.R
 import com.android.maplemate.ViewModel.SecondFragmentViewModel
 import com.android.maplemate.databinding.FragmentSecondBinding
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 
 
 class SecondFragment : Fragment() {
@@ -33,7 +29,7 @@ class SecondFragment : Fragment() {
     private val binding get() = _binding!!
     private val viewModel: SecondFragmentViewModel by viewModels()
     private val dataList = mutableListOf<Equipment.ItemEquipment?>()
-    private val adapter by lazy { SecondFragmentAdapter(dataList) }
+    private val adapter by lazy { SecondFragmentAdapter(requireContext(),dataList) }
 
     private lateinit var mapleNickName: String
 
@@ -62,6 +58,10 @@ class SecondFragment : Fragment() {
 
         binding.rvEqupipment.adapter = adapter  // 리싸이클러뷰 위젯 = adapter (내가만든 어뎁터)
         binding.rvEqupipment.layoutManager = LinearLayoutManager(context) // (레이아웃 매니저 설정)
+
+        val spacingInPixels = resources.getDimensionPixelSize(R.dimen.spacing) //리싸이클러뷰 간격 설정
+
+        binding.rvEqupipment.addItemDecoration(ItemSpacingDecoration(spacingInPixels))
         observeViewModel()
 
 
@@ -84,7 +84,6 @@ class SecondFragment : Fragment() {
 
             } else {
                 Toast.makeText(requireContext(), "캐릭터명을 입력해주세요", Toast.LENGTH_SHORT).show()
-                Log.d("nexon", "입력값이없어 UI가 변경되지 않음")
             }
         }
         binding.ivBackButton.setOnClickListener {
@@ -121,11 +120,11 @@ class SecondFragment : Fragment() {
 
         userData.let {
             binding.ivCharacterImage.load(it?.characterImage)
-            binding.tvCharacterLevel.text = "레벨:${it?.characterLevel}"
-            binding.tvWorldName.text = "서버:${it?.worldName}"
-            binding.tvCharacterName.text = "닉네임:${it?.characterName}"
-            binding.tvCharacterGuildName.text = "길드명:${it?.characterGuildName}"
-            binding.tvCharacterExpRate.text = "경험치:${it?.characterExpRate}%"
+            binding.tvCharacterLevel.text = "레벨: ${it?.characterLevel}"
+            binding.tvWorldName.text = "서버: ${it?.worldName}"
+            binding.tvCharacterName.text = "닉네임: ${it?.characterName}"
+            binding.tvCharacterGuildName.text = "길드명: ${it?.characterGuildName}"
+            binding.tvCharacterExpRate.text = "경험치: ${it?.characterExpRate}%"
 
         }
     }

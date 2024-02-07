@@ -8,103 +8,114 @@
     android:orientation="vertical"
     tools:context=".UI.FirstFragment">
 
-<LinearLayout
-    android:id="@+id/box_result"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:visibility="gone">
     <LinearLayout
-        android:id="@+id/box"
+        android:id="@+id/box_result"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:orientation="horizontal"
-        android:visibility="visible">
-
-        <ImageView
-            android:id="@+id/iv_back_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:src="@drawable/arrow_left" />
-
-        <ImageView
-            android:id="@+id/iv_character_image"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="20dp"
-            android:src="@drawable/basic" />
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:visibility="gone">
 
         <LinearLayout
+            android:id="@+id/box"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:orientation="vertical">
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            android:visibility="visible">
 
-            <TextView
-                android:id="@+id/tv_character_level"
+            <ImageView
+                android:id="@+id/iv_back_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="레벨:"
-                android:textStyle="bold" />
+                android:layout_marginLeft="20dp"
+                android:src="@drawable/arrow_left" />
 
-            <TextView
-                android:id="@+id/tv_world_name"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="서버"
-                android:textStyle="bold" />
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tv_character_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="닉네임:"
-                android:textStyle="bold" />
+                <ImageView
+                    android:id="@+id/iv_character_image"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="20dp"
+                    android:src="@drawable/basic" />
 
-            <TextView
-                android:id="@+id/tv_character_guild_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="길드명:"
-                android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/tv_union"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:background="@drawable/button_roundshpae"
+                    android:text="코디 상세 분석 → "
+                    android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/tv_character_exp_rate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="경험치:"
-                android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/tv_union"
-                android:layout_width="wrap_content"
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="유니온:"
-                android:textStyle="bold" />
+                android:layout_marginLeft="10dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_character_level"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="레벨:"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_world_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="서버"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_character_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="닉네임:"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_character_guild_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="길드명:"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_character_exp_rate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="경험치:"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
 
         </LinearLayout>
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_equpipment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
 
     </LinearLayout>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_equpipment"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
-
-
-</LinearLayout>
 
 
     <LinearLayout
         android:id="@+id/box_search"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical"
         android:visibility="visible">
 
@@ -132,9 +143,9 @@
 
         <ImageView
             android:id="@+id/iv_background_image"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@drawable/background" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/background2" />
 
     </LinearLayout>
 
