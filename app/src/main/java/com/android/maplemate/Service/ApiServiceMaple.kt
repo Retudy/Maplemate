@@ -12,7 +12,6 @@ import retrofit2.http.Query
 interface ApiServiceMaple {
     @GET("/maplestory/v1/id")
     fun getocid(
-
         @Header("x-nxopen-api-key") apiKey: String,
         @Query("character_name") charactername: String,
 
