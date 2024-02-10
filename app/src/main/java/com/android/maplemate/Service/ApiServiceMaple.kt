@@ -44,6 +44,4 @@ interface ApiServiceMaple {
         @Query("ocid") ocid: String,
         @Query("date") date: String
     ): Call<Equipment>
-
-
 }
