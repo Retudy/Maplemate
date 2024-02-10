@@ -10,6 +10,8 @@ data class Cash(
     val additionalCashItemEquipmentPreset2: List<AdditionalCashItemEquipmentPreset2?>?,
     @SerializedName("additional_cash_item_equipment_preset_3")
     val additionalCashItemEquipmentPreset3: List<AdditionalCashItemEquipmentPreset3?>?,
+    @SerializedName("cash_item_equipment_base")
+    val cashItemEquipmentBase: List<Cash2222.CashItemEquipmentBase>?,
     @SerializedName("cash_item_equipment_preset_1")
     val cashItemEquipmentPreset1: List<CashItemEquipmentPreset1?>?,
     @SerializedName("cash_item_equipment_preset_2")

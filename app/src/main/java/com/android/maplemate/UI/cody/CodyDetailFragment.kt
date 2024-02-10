@@ -81,7 +81,8 @@ class CodyDetailFragment : DialogFragment() {
             override fun onResponse(call: Call<Cash>, response: Response<Cash>) {
                 if (response.isSuccessful) {
                     val responseBody = response.body()
-                    val itemList = responseBody?.cashItemEquipmentPreset1 ?: emptyList()
+                    Log.d("getprestno","getnumber:${responseBody?.presetNo}")
+                    val itemList = responseBody?.cashItemEquipmentBase ?: emptyList()
 
                     codyAdapter.setItems(itemList)
 

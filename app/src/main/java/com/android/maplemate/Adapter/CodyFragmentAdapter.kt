@@ -6,15 +6,16 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.android.maplemate.Data.Cash
+import com.android.maplemate.Data.Cash2222
 import com.android.maplemate.databinding.FragmentCodyDetailItemBinding
 
 class CodyFragmentAdapter(
 ) : RecyclerView.Adapter<CodyFragmentAdapter.ViewHolder>() {
 
-    private var items: List<Cash.CashItemEquipmentPreset1> = emptyList()
+    private var items: List<Cash2222.CashItemEquipmentBase> = emptyList()
 
-    fun setItems(items: List<Cash.CashItemEquipmentPreset1?>) {
-        this.items = items as List<Cash.CashItemEquipmentPreset1>
+    fun setItems(items: List<Cash2222.CashItemEquipmentBase?>) {
+        this.items = items as List<Cash2222.CashItemEquipmentBase>
         notifyDataSetChanged()
     }
 
@@ -38,10 +39,10 @@ class CodyFragmentAdapter(
     inner class ViewHolder(val binding: FragmentCodyDetailItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bindItems(item: Cash.CashItemEquipmentPreset1) = binding.apply {
+        fun bindItems(item: Cash2222.CashItemEquipmentBase) = binding.apply {
 
             imgCodyName.load(item.cashItemIcon)
-            tvCodyItem.text = item?.cashItemLabel
+            tvCodyItem.text = item?.cashItemLabel as CharSequence?
             tvCodyItemChar.text = item?.cashItemEquipmentSlot
             tvCodyItemName.text = item?.cashItemName
 
