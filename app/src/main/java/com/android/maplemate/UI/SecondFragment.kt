@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.isVisible
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import coil.load
@@ -118,7 +119,7 @@ class SecondFragment : Fragment() {
             // 리싸이클러뷰 데이터 업데이트
             Handler().postDelayed({
                 adapter.submitList(newDataList)
-            }, 500) // 1000밀리초(1초)의 딜레이
+            }, 250) // 1000밀리초(1초)의 딜레이
 
 
         }
