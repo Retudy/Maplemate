@@ -8,7 +8,11 @@
 
 
 <p align="center">
-  <img width="303" alt="스크린샷 2024-02-06 오전 12 17 23" src="https://github.com/Retudy/Maplemate/assets/129308578/1fc4dccc-e8c7-4a6e-9cfd-a2546b437eb2">
+
+  ![1](https://github.com/Retudy/Maplemate/assets/129308578/67d5371a-3e33-4e8d-be18-56e732a8cf60)
+  ![2](https://github.com/Retudy/Maplemate/assets/129308578/7797aeef-6284-4593-a9e0-319d9d62c1ce)
+
+
 
 
 
