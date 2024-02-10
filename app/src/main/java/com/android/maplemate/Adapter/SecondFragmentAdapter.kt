@@ -58,7 +58,7 @@ class SecondFragmentAdapter(
                 else -> {
                     binding.tvStarFoce.visibility = View.VISIBLE
                     when (item?.starforce) {
-                        else -> binding.tvStarFoce.text = "⭐️ ${item?.starforce}성"
+                        else -> binding.tvStarFoce.text = "⭐️${item?.starforce}성"
                     }
                 }
 

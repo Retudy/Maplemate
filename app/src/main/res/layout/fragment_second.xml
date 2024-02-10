@@ -23,6 +23,7 @@
             android:orientation="horizontal"
             android:visibility="visible">
 
+
             <ImageView
                 android:id="@+id/iv_back_button"
                 android:layout_width="wrap_content"
@@ -44,7 +45,7 @@
                     android:src="@drawable/basic" />
 
                 <TextView
-                    android:id="@+id/tv_union"
+                    android:id="@+id/tv_cody_detail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
@@ -106,7 +107,8 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_equpipment"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            tools:listitem="@layout/fragment_second_item"/>
 
 
     </LinearLayout>
@@ -125,7 +127,7 @@
             android:layout_height="40dp"
             android:layout_gravity="center"
             android:layout_marginHorizontal="23dp"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="100dp"
             android:background="@drawable/scrap_content_outline"
             android:focusableInTouchMode="true"
             android:gravity="center"
@@ -141,7 +143,7 @@
             android:layout_marginTop="20dp"
             android:text="조회" />
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/iv_background_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -8,8 +8,8 @@ import com.android.maplemate.R
 import com.android.maplemate.UI.FirstFragment
 import com.android.maplemate.UI.SecondFragment
 import com.android.maplemate.UI.SuFragment
-import com.android.maplemate.UI.CodyFragment
 import com.android.maplemate.UI.ThirdFragment
+import com.android.maplemate.UI.cody.CodyFragment
 
 class ViewPager2Adapter(fragmentActivity: FragmentActivity) :
     FragmentStateAdapter(fragmentActivity) {
