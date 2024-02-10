@@ -100,6 +100,10 @@ class SecondFragmentViewModel : ViewModel() {
     fun setUserInput(mapleNickName: String) {
         _searchInput.value = mapleNickName
     }
+    fun setUserOcid(): String{
+        return getocid
+
+    }
 
     fun apiRequest(mapleNickName: String) {
 

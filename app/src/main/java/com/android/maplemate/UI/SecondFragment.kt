@@ -16,6 +16,7 @@ import com.android.maplemate.Data.Equipment
 import com.android.maplemate.Data.MapleData
 import com.android.maplemate.ItemSpacingDecoration
 import com.android.maplemate.R
+import com.android.maplemate.UI.cody.CodyDetailFragment
 import com.android.maplemate.ViewModel.SecondFragmentViewModel
 import com.android.maplemate.databinding.FragmentSecondBinding
 
@@ -92,6 +93,13 @@ class SecondFragment : Fragment() {
                 boxSearch.isVisible = true
             }
         }
+        binding.tvCodyDetail.setOnClickListener {
+
+            //코디 상세 버튼을 누르면 코디 상세 프래그먼트로 이동되고, 획득한 ocid를 넘겨 캐시 장비를 조회하도록 설정
+            showFullDialog(viewModel.setUserOcid())
+
+
+        }
     }
 
     override fun onDestroyView() {
@@ -127,6 +135,14 @@ class SecondFragment : Fragment() {
             binding.tvCharacterExpRate.text = "경험치: ${it?.characterExpRate}%"
 
         }
+    }
+    fun showFullDialog(ocid: String) {
+//        hideOrShowBottomNavigationView(requireContext(), false)
+        val childFragment = CodyDetailFragment()
+        val args = Bundle()
+        args.putString("ocid", ocid)
+        childFragment.arguments = args
+        childFragment.show(parentFragmentManager, "CodyDetailFragment")
     }
 
 }

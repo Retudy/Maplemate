@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:id="@+id/fragmentContainer"
     android:orientation="vertical"
-    tools:context=".UI.cody.CodyFragment">
+    tools:context=".UI.ApiServiceBithum.ApiServiceBithumFragment">
 
     <EditText
         android:id="@+id/edt_cody_name"
